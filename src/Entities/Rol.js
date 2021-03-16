@@ -1,9 +1,6 @@
 import * as React from "react";
-import { cloneElement, useMemo } from 'react';
+import { cloneElement } from 'react';
 import { fetchUtils } from 'react-admin';
-import { stringify } from 'query-string';
-import PropTypes from 'prop-types';
-import config from './config'
 import { 
   useListContext,
   TopToolbar,
@@ -69,7 +66,7 @@ const ListActions = (props) => {
   let rolCreate = null
 
   props.permissions.map(perm => {
-    if(perm.number == config.createRol) {
+    if(perm.permission == props.create) {
       rolCreate = <CreateButton basePath={ basePath } />
     }
   })
@@ -92,15 +89,6 @@ const ListActions = (props) => {
   );
 };
 
-const RolFilter = (props) => (
-  <Filter {...props}>
-    {/* <TextInput label="Search" source="q" alwaysOn /> */}
-    <ReferenceInput label="Rol" source="name" reference="rol" allowEmpty>
-      <SelectInput optionText="name" />
-    </ReferenceInput>
-  </Filter>
-);
-
 const BulkDeleteRolButton = () => {};
 
 export const RolList = (props) => {
@@ -108,25 +96,15 @@ export const RolList = (props) => {
   let rolReturn = null
   let rolUpdate = null
 
-
-	if(
-		props !== undefined &&
-		props.permissions !== undefined &&
-		Array.isArray(props.permissions)
-	) {
-		props.permissions.map(perm => {
-			if(perm.number == config.updateRol) {
-				rolUpdate = <EditButton />
-			}
-		})
-
-	}
-
- 
+  props.permissions.map(perm => {
+    if(perm.permission == props.update) {
+      rolUpdate = <EditButton />
+    }
+  })
 
   let rolDelete = <List 
     {...props} 
-    actions={<ListActions permissions={ props.permissions } />}
+    actions={<ListActions permissions={ props.permissions } create={ props.create } />}
   >
     <Datagrid>
       {
@@ -147,7 +125,7 @@ export const RolList = (props) => {
   
   let rolList = <List 
     {...props} 
-    actions={<ListActions permissions={ props.permissions } />}
+    actions={<ListActions permissions={ props.permissions } create={ props.create } />}
     bulkActionButtons={ BulkDeleteRolButton }
   >
     <Datagrid>
@@ -176,10 +154,10 @@ export const RolList = (props) => {
   let rolListBoolean = false
 
   props.permissions.map(perm => {
-    if(perm.number == config.deleteRol) {
+    if(perm.permission == props.delete) {
       rolDeleteBoolean = true
     }
-    if(perm.number == config.listRol) {
+    if(perm.permission == props.list) {
       rolListBoolean = true
     }
   })
@@ -216,7 +194,7 @@ export const RolCreate = props => (
       <TextInput source="name" />
       <ArrayInput source="permission">
         <SimpleFormIterator>
-          <ReferenceInput label="permission" source="permission" reference="permission">
+          <ReferenceInput perPage={ 10000 } label="permission" source="permission" reference="permission">
             <SelectInput optionText="name" />
           </ReferenceInput>
         </SimpleFormIterator>

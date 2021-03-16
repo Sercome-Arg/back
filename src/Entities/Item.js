@@ -1,8 +1,5 @@
 import * as React from "react";
-import { cloneElement, useMemo } from 'react';
-import { fetchUtils } from 'react-admin';
-import { stringify } from 'query-string';
-import PropTypes from 'prop-types';
+import { cloneElement } from 'react';
 import { 
   useListContext,
   TopToolbar,

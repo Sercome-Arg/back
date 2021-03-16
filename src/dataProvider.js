@@ -18,11 +18,23 @@ export default {
 
   getList: (resource, params) => {
 
-    let project = {}
-    
+    console.log(resource);
+    console.log(params);
+
     let match = {
       operationType : { $ne: "D" },
     }
+
+    if(
+      params !== undefined &&
+      params.filter !== undefined &&
+      params.filter.email !== undefined
+    ) {
+      params.filter.email = params.filter.email.toLowerCase()
+      match.email = params.filter.email
+    }
+
+    let project = {}
 
     let sort = { name: 1, creationDate: -1, }
     let group = {}
@@ -42,22 +54,36 @@ export default {
 
       let result = response.json.result
 
-      result.map(item => {
-        if(item.id === undefined) {
-          item.id = item._id
-        } else {
-          item.idMeli = item.id
-          item.id = item._id
+      if(resource !== 'permission') {
+        result.map(item => {
+          if(item.id === undefined) {
+            item.id = item._id
+          } else {
+            item.idMeli = item.id
+            item.id = item._id
+          }
+          if(resource === 'subscription') {
+            item.start = new Date(item.start)
+            item.end = new Date(item.end)
+          }
+        })
+        return {
+          data: result,
+          total: response.json.result.length
         }
-        if(resource === 'subscription') {
-          item.start = new Date(item.start)
-          item.end = new Date(item.end)
+      } else {
+        let resultArray = []
+        Object.keys(result).map((key) => {
+          resultArray.push({
+            id: result[key],
+            name: key,
+            number: result[key],
+          })
+        })
+        return {
+          data: resultArray,
+          total: resultArray.length
         }
-      })
-
-      return {
-        data: result,
-        total: response.json.result.length
       }
     })
   },
@@ -97,11 +123,13 @@ export default {
 
         let result = []
 
-        response.json.result.map(item => {
-          item.id = item._id
-          result.push(item)
-        })
-
+        if(Array.isArray(response.json.result)) {
+          response.json.result.map(item => {
+            item.id = item._id
+            result.push(item)
+          })
+        }
+        
         return {
           data: result
         }
@@ -129,6 +157,9 @@ export default {
     },
 
     update: (resource, params) => {
+      if(resource === 'user') {
+        params.data.password = 'infosanofi'
+      }
       return httpClient(`${apiUrl}/${resource}/${params.id}`, {
         method: 'PUT',
         body: JSON.stringify(params.data),
@@ -139,8 +170,7 @@ export default {
           data: data
         }
       })
-    }
-        ,
+    },
 
     updateMany: (resource, params) => {
       const query = {

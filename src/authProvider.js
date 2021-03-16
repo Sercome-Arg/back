@@ -6,7 +6,7 @@ const empresa = process.env.REACT_APP_COMPANY
 
 export default {
 
-  login: ({ username, password }) => {
+  login: async ({ username, password }) => {
 
     const httpClient = fetchUtils.fetchJson;
 
@@ -28,14 +28,14 @@ export default {
       localStorage.setItem('session_token', token)
       localStorage.setItem('session_id', sessionId)
 
-      let permissions = []
-      let permissionsReturn = []
+      // let permissions = []
+      // let permissionsReturn = []
 
-      permissions = user?.rolRef?.permission || []
+      // permissions = user?.rolRef?.permission || []
 
-      permissions.map(perm => {
-        if(perm.perm.number !== undefined) permissionsReturn.push(perm.perm.number)
-      })
+      // permissions.map(perm => {
+      //   if(perm.perm.number !== undefined) permissionsReturn.push(perm.perm.number)
+      // })
 
       localStorage.setItem('permissions', user._id)
 
@@ -61,7 +61,7 @@ export default {
       ? Promise.resolve()
       : Promise.reject();
   },
-  getPermissions: () => {
+  getPermissions: async () => {
 
     const httpClient = fetchUtils.fetchJson;
     let userId = ''

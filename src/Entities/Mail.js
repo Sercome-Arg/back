@@ -1,15 +1,9 @@
 import * as React from "react";
-import { cloneElement, useMemo } from 'react';
-import { fetchUtils } from 'react-admin';
-import { stringify } from 'query-string';
-import PropTypes from 'prop-types';
-import config from './config'
+import { cloneElement } from 'react';
 import { 
   useListContext,
   TopToolbar,
   CreateButton,
-  ExportButton,
-  Button,
   sanitizeListRestProps,
   List,
   Datagrid,
@@ -24,29 +18,9 @@ import {
   Create,
   ReferenceField,
   EditButton,
-  TabbedShowLayout,
-  Tab,
-  ArrayField,
-  ArrayInput,
-  SimpleFormIterator,
   BooleanField,
   BooleanInput
 } from 'react-admin';
-import IconEvent from '@material-ui/icons/Event';
-
-const httpClient = (url, options = {}) => {
-  // if (!options.headers) {
-  //     options.headers = new Headers({ Accept: 'application/json' });
-  // }
-  // add your own headers here
-
-  options.headers = new Headers()
-
-  options.headers.set('Content-Type', 'application/json');
-  options.headers.set('Authorization', localStorage.getItem('session_token'));
-  options.headers.set('session', localStorage.getItem('session_id'));
-  return fetchUtils.fetchJson(url, options);
-}
 
 const ListActions = (props) => {
   const {
@@ -71,7 +45,7 @@ const ListActions = (props) => {
   let mailCreate = null
 
   props.permissions.map(perm => {
-    if(perm.number == config.createMail) {
+    if(perm.number == props.create) {
       mailCreate = <CreateButton basePath={ basePath } />
     }
   })
@@ -111,14 +85,14 @@ export const MailList = (props) => {
   let mailUpdate = null
 
   props.permissions.map(perm => {
-    if(perm.number == config.updateMail) {
+    if(perm.number == props.update) {
       mailUpdate = <EditButton />
     }
   })
 
   let mailDelete = <List 
     {...props} 
-    actions={<ListActions permissions={ props.permissions } />}
+    actions={<ListActions permissions={ props.permissions } create={ props.create } />}
   >
     <Datagrid>
       {
@@ -141,7 +115,7 @@ export const MailList = (props) => {
   
   let mailList = <List 
     {...props} 
-    actions={<ListActions permissions={ props.permissions } />}
+    actions={<ListActions permissions={ props.permissions } create={ props.create } />}
     bulkActionButtons={ BulkDeleteMailButton }
   >
     <Datagrid>
@@ -167,10 +141,10 @@ export const MailList = (props) => {
   let mailListBoolean = false
 
   props.permissions.map(perm => {
-    if(perm.number == config.deleteMail) {
+    if(perm.number == props.delete) {
       mailDeleteBoolean = true
     }
-    if(perm.number == config.listMail) {
+    if(perm.number == props.list) {
       mailListBoolean = true
     }
   })

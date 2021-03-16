@@ -1,8 +1,5 @@
 import * as React from "react";
-import { cloneElement, useMemo } from 'react';
-import { fetchUtils } from 'react-admin';
-import { stringify } from 'query-string';
-import PropTypes from 'prop-types';
+import { cloneElement } from 'react';
 import { 
   useListContext,
   TopToolbar,
@@ -26,7 +23,6 @@ import {
   TabbedShowLayout,
   Tab
 } from 'react-admin';
-import IconEvent from '@material-ui/icons/Event';
 
 const ListActions = (props) => {
   const {

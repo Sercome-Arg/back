@@ -1,8 +1,6 @@
 import * as React from "react";
-import { cloneElement, useMemo } from 'react';
+import { cloneElement } from 'react';
 import { fetchUtils } from 'react-admin';
-import { stringify } from 'query-string';
-import PropTypes from 'prop-types';
 import { 
   useListContext,
   TopToolbar,
@@ -31,21 +29,6 @@ import {
   NumberField,
   NumberInput
 } from 'react-admin';
-import IconEvent from '@material-ui/icons/Event';
-
-const httpClient = (url, options = {}) => {
-  // if (!options.headers) {
-  //     options.headers = new Headers({ Accept: 'application/json' });
-  // }
-  // add your own headers here
-
-  options.headers = new Headers()
-
-  options.headers.set('Content-Type', 'application/json');
-  options.headers.set('Authorization', localStorage.getItem('session_token'));
-  options.headers.set('session', localStorage.getItem('session_id'));
-  return fetchUtils.fetchJson(url, options);
-}
 
 const ListActions = (props) => {
   const {

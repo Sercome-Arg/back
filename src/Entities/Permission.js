@@ -1,43 +1,28 @@
 import * as React from "react";
-import { cloneElement, useMemo } from 'react';
-import { fetchUtils } from 'react-admin';
-import { stringify } from 'query-string';
-import PropTypes from 'prop-types';
-import config from './config'
+import { cloneElement } from 'react';
 import { 
 	useListContext,
 	TopToolbar,
 	CreateButton,
-	ExportButton,
-	Button,
 	sanitizeListRestProps,
 	List,
 	Datagrid,
 	TextField,
 	DateField,
 	TextInput,
-	ReferenceInput,
-	SelectInput,
 	Filter,
 	Edit,
 	SimpleForm,
 	Create,
 	ReferenceField,
 	EditButton,
-	TabbedShowLayout,
-	Tab,
-	NumberField,
-	NumberInput,
 	Toolbar,
 	SaveButton,
 	DeleteButton,	
-	useDeleteMany,
 	Pagination 
 } from 'react-admin';
-import IconEvent from '@material-ui/icons/Event';
 
 import { makeStyles } from '@material-ui/core/styles';
-import permissions from "./config";
 
 const useStyles = makeStyles({
 	toolbar: {
@@ -69,7 +54,7 @@ const ListActions = (props) => {
 	let permissionCreate = null
 
 	props.permissions.map(perm => {
-		if(perm.number == config.createPermission) {
+		if(perm.permission == props.create) {
 			permissionCreate = <CreateButton basePath={ basePath } />
 		}
 	})
@@ -92,12 +77,6 @@ const ListActions = (props) => {
 	);
 };
 
-const PermissionFilter = (props) => (
-	<Filter {...props}>
-		<TextInput label="Search" source="name" alwaysOn />
-	</Filter>
-);
-
 const BulkDeletePermissionButton = () => {};
 
 const PermissionPagination = props => <Pagination rowsPerPageOptions={[10, 25, 100, 200]} {...props} />;
@@ -107,46 +86,11 @@ export const PermissionList = (props) => {
 	let permissionReturn = null
 	let permissionUpdate = null
 
-	if(
-		props !== undefined &&
-		props.permissions !== undefined &&
-		Array.isArray(props.permissions)
-	) {
-		props.permissions.map(perm => {
-			if(perm.number == config.updatePermission) {
-				permissionUpdate = <EditButton />
-			}
-		})
-
-	}
-
-
-	let permissionDelete = <List 
-		{...props} 
-		actions={<ListActions permissions={ props.permissions } />}
-		pagination={<PermissionPagination />}
-	>
-		<Datagrid>
-			{
-				permissionUpdate
-			}
-			<TextField source="name" />
-			<TextField source="number" />
-			<TextField source="operationType" />
-			<ReferenceField source="creationUser" reference="user">
-				<TextField source="email" />
-			</ReferenceField>
-			<ReferenceField source="updateUser" reference="user">
-				<TextField source="email" />
-			</ReferenceField>
-			<DateField source="creationDate" />
-			<DateField source="updateDate" />
-		</Datagrid>
-	</List>
+	let permissionDelete = null
 	
 	let permissionList = <List 
 		{...props} 
-		actions={<ListActions permissions={ props.permissions } />}
+		actions={<ListActions permissions={ props.permissions } create={ props.create } />}
 		bulkActionButtons={ BulkDeletePermissionButton }
 		pagination={<PermissionPagination />}
 	>
@@ -154,39 +98,23 @@ export const PermissionList = (props) => {
 			{
 				permissionUpdate
 			}
+			<TextField source="id" />
 			<TextField source="name" />
 			<TextField source="number" />
-			<TextField source="operationType" />
-			<ReferenceField source="creationUser" reference="user">
-				<TextField source="email" />
-			</ReferenceField>
-			<ReferenceField source="updateUser" reference="user">
-				<TextField source="email" />
-			</ReferenceField>
-			<DateField source="creationDate" />
-			<DateField source="updateDate" />
 		</Datagrid>
 	</List>
 
 	let permissionDeleteBoolean = false
 	let permissionListBoolean = false
-	
-	if(
-		props !== undefined &&
-		props.permissions !== undefined &&
-		Array.isArray(props.permissions)
-	) {
-		props.permissions.map(perm => {
-			if(perm.number == config.deletePermission) {
-				permissionDeleteBoolean = true
-			}
-			if(perm.number == config.listPermission) {
-				permissionListBoolean = true
-			}
-		})
-	}
-	
 
+	props.permissions.map(perm => {
+		if(perm.permission == props.delete) {
+			permissionDeleteBoolean = true
+		}
+		if(perm.permission == props.list) {
+			permissionListBoolean = true
+		}
+	})
 
 	if(permissionListBoolean) {
 		permissionReturn = permissionList
@@ -210,7 +138,7 @@ const CustomToolbar = props => {
 	</Toolbar>
 
 	props.permissions.map(perm => {
-		if(perm.number == config.deletePermission) {
+		if(perm.permission == props.delete) {
 			permissionReturn = permissionDelete
 		}
 	})
@@ -226,7 +154,7 @@ export const PermissionEdit = props => {
 		actions={ null }
 		>
 		<SimpleForm
-			toolbar={<CustomToolbar { ...props } />}
+			toolbar={<CustomToolbar { ...props } delete={ props.delete } />}
 		>
 			<TextInput disabled source="id" />
 			<TextInput source="name" />
@@ -235,7 +163,7 @@ export const PermissionEdit = props => {
 	</Edit>
 
 	props.permissions.map(perm => {
-		if(perm.number == config.updatePermission) {
+		if(perm.permission == props.update) {
 			permissionReturn = permissionEdit
 		}
 	})
@@ -254,7 +182,7 @@ export const PermissionCreate = props => {
 	</Create>
 
 	props.permissions.map(perm => {
-		if(perm.number == config.createPermission) {
+		if(perm.permission == props.create) {
 			permissionReturn = permissionCreate
 		}
 	})

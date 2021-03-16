@@ -1,15 +1,10 @@
 import * as React from "react";
-import { cloneElement, useMemo } from 'react';
+import { cloneElement } from 'react';
 import { fetchUtils } from 'react-admin';
-import { stringify } from 'query-string';
-import PropTypes from 'prop-types';
-import config from './config'
 import { 
   useListContext,
   TopToolbar,
   CreateButton,
-  ExportButton,
-  Button,
   sanitizeListRestProps,
   List,
   Datagrid,
@@ -22,30 +17,11 @@ import {
   Edit,
   SimpleForm,
   Create,
-  ReferenceField,
   EditButton,
-  TabbedShowLayout,
-  Tab,
-  ArrayField,
   ArrayInput,
   SimpleFormIterator,
   Pagination
 } from 'react-admin';
-import IconEvent from '@material-ui/icons/Event';
-
-const httpClient = (url, options = {}) => {
-  // if (!options.headers) {
-  //     options.headers = new Headers({ Accept: 'application/json' });
-  // }
-  // add your own headers here
-
-  options.headers = new Headers()
-
-  options.headers.set('Content-Type', 'application/json');
-  options.headers.set('Authorization', localStorage.getItem('session_token'));
-  options.headers.set('session', localStorage.getItem('session_id'));
-  return fetchUtils.fetchJson(url, options);
-}
 
 const ListActions = (props) => {
   const {
@@ -70,7 +46,7 @@ const ListActions = (props) => {
   let paymentCreate = null
 
   props.permissions.map(perm => {
-    if(perm.number == config.createPayment) {
+    if(perm.number == props.create) {
       paymentCreate = <CreateButton basePath={ basePath } />
     }
   })
@@ -112,14 +88,14 @@ export const PaymentList = (props) => {
   let paymentUpdate = null
 
   props.permissions.map(perm => {
-    if(perm.number == config.updatePayment) {
+    if(perm.number == props.update) {
       paymentUpdate = <EditButton />
     }
   })
 
   let paymentDelete = <List 
     {...props} 
-    actions={<ListActions permissions={ props.permissions } />}
+    actions={<ListActions permissions={ props.permissions } create={ props.create } />}
     pagination={<PaymentPagination />}
   >
     <Datagrid>
@@ -136,7 +112,7 @@ export const PaymentList = (props) => {
   
   let paymentList = <List 
     {...props} 
-    actions={ <ListActions permissions={ props.permissions } /> }
+    actions={ <ListActions permissions={ props.permissions } create={ props.create } /> }
     bulkActionButtons={ BulkDeletePaymentButton }
     pagination={<PaymentPagination />}
   >
@@ -156,10 +132,10 @@ export const PaymentList = (props) => {
   let paymentListBoolean = false
 
   props.permissions.map(perm => {
-    if(perm.number == config.deletePayment) {
+    if(perm.number == props.delete) {
       paymentDeleteBoolean = true
     }
-    if(perm.number == config.listPayment) {
+    if(perm.number == props.list) {
       paymentListBoolean = true
     }
   })

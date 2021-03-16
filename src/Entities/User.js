@@ -1,6 +1,5 @@
 import * as React from "react";
-import { cloneElement, useMemo } from 'react';
-import PropTypes from 'prop-types';
+import { cloneElement } from 'react';
 import { 
   useListContext,
   TopToolbar,
@@ -26,16 +25,8 @@ import {
   PasswordInput,
   NumberField,
   NumberInput,
-  DateInput,
-  SaveButton,
-  Toolbar,
-  useCreate,
-  useRedirect,
-  useNotify,
   EditButton
 } from 'react-admin';
-import { useCallback } from 'react';
-import IconEvent from '@material-ui/icons/Event';
 
 const ListActions = (props) => {
   const {
@@ -72,25 +63,25 @@ const ListActions = (props) => {
   );
 };
 
+const EntityFilter = (props) => (
+  <Filter {...props}>
+    <TextInput label="Search" source="email" alwaysOn />
+  </Filter>
+);
+
 export const UserList = (props) => {
 
   return <List 
       {...props} 
       actions={<ListActions />}
+      filters={<EntityFilter />}
     >
     <Datagrid>
       <EditButton />
-      <TextField source="user" />
       <ReferenceField source="rol" reference="rol">
         <TextField source="name" />
       </ReferenceField>
-      <NumberField source="wingcoins" />
       <EmailField source="email" />
-      <TextField source="name" />
-      <TextField source="surname" />
-      <NumberField source="dni" />
-      <BooleanField source="aceptTC" />
-      <BooleanField source="enabled" />
       <ReferenceField source="creationUser" reference="user">
         <TextField source="email" />
       </ReferenceField>
@@ -107,17 +98,10 @@ export const UserEdit = props => (
   <Edit {...props}>
     <SimpleForm >
       <TextInput disabled source="id" />
-      <TextInput source="user" />
+      <TextInput source="email" type="email" />
       <ReferenceInput source="rol" reference="rol">
         <SelectInput optionText="name" />
       </ReferenceInput>
-      <TextInput source="email" type="email" />
-      <TextInput source="name" />
-      <TextInput source="surname" />
-      <NumberInput source="dni" />
-      <BooleanInput label="aceptTC" source="aceptTC" />
-      <BooleanInput label="enabled" source="enabled" />
-      <NumberInput source="phone" />
     </SimpleForm>
   </Edit>
 );
@@ -125,18 +109,10 @@ export const UserEdit = props => (
 export const UserCreate = props => (
   <Create {...props}>
     <SimpleForm>
-      <TextInput source="user" />
+      <TextInput source="email" type="email" />
       <ReferenceInput source="rol" reference="rol">
         <SelectInput optionText="name" />
       </ReferenceInput>
-      <TextInput source="email" type="email"/>
-      <TextInput source="name" />
-      <TextInput source="surname" />
-      <NumberInput source="dni" />
-      <BooleanInput label="aceptTC" source="aceptTC" />
-      <BooleanInput label="enabled" source="enabled" />
-      <NumberInput source="phone" />
-      <PasswordInput source="password" />
     </SimpleForm>
   </Create>
 );

@@ -1,32 +1,23 @@
 import * as React from "react";
-import { cloneElement, useMemo } from 'react';
-import { fetchUtils } from 'react-admin';
-import { stringify } from 'query-string';
-import PropTypes from 'prop-types';
+import { cloneElement } from 'react';
 import { 
   useListContext,
   TopToolbar,
   CreateButton,
   ExportButton,
-  Button,
   sanitizeListRestProps,
   List,
   Datagrid,
   TextField,
-  DateField,
   TextInput,
   ReferenceInput,
   SelectInput,
-  Filter,
   Edit,
   SimpleForm,
   Create,
   ReferenceField,
   EditButton,
-  TabbedShowLayout,
-  Tab
 } from 'react-admin';
-import IconEvent from '@material-ui/icons/Event';
 
 const ListActions = (props) => {
   const {
