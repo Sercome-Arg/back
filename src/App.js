@@ -14,6 +14,7 @@ import { AlertList, AlertCreate, AlertEdit } from './Entities/Alert'
 import { PermissionList, PermissionCreate, PermissionEdit } from './Entities/Permission' 
 import { RolList, RolCreate, RolEdit } from './Entities/Rol'
 import { MailList, MailCreate, MailEdit } from './Entities/Mail'
+import { MagnitudeCreate, MagnitudeEdit, MagnitudeList } from "./Entities/Magnitude";
 
 const App = () => (
   <Admin 
@@ -27,12 +28,14 @@ const App = () => (
 
         let resources = []
 
-        resources.push(<Resource name="permission" list={ PermissionList } edit={ PermissionEdit } create={ PermissionCreate } permissions={ permissions } />)
-        resources.push(<Resource name="rol" list={ RolList } edit={ RolEdit } create={ RolCreate } permissions={ permissions } />)
+        resources.push(<Resource name="magnitude" list={ MagnitudeList } edit={ MagnitudeEdit } create={ MagnitudeCreate } permissions={ permissions } />)
+
         resources.push(<Resource name="user" list={ UserList } edit={ UserEdit } create={ UserCreate } permissions={ permissions } />)
-				resources.push(<Resource name="mail" list={ MailList } edit={ MailEdit } create={ MailCreate } permissions={ permissions } />)
-				resources.push(<Resource name="instrument" list={ InstrumentList } edit={ InstrumentEdit } create={ InstrumentCreate } permissions={ permissions } />)
-				resources.push(<Resource name="alert" list={ AlertList } edit={ AlertEdit } create={ AlertCreate } permissions={ permissions } />)
+        // resources.push(<Resource name="permission" list={ PermissionList } edit={ PermissionEdit } create={ PermissionCreate } permissions={ permissions } />)
+        // resources.push(<Resource name="rol" list={ RolList } edit={ RolEdit } create={ RolCreate } permissions={ permissions } />)
+				// resources.push(<Resource name="mail" list={ MailList } edit={ MailEdit } create={ MailCreate } permissions={ permissions } />)
+				// resources.push(<Resource name="instrument" list={ InstrumentList } edit={ InstrumentEdit } create={ InstrumentCreate } permissions={ permissions } />)
+				// resources.push(<Resource name="alert" list={ AlertList } edit={ AlertEdit } create={ AlertCreate } permissions={ permissions } />)
 
         return resources
       }
