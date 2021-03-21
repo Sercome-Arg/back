@@ -37,11 +37,11 @@ const ListActions = (props) => {
     showFilter,
   } = useListContext();
 
-  let rolCreate = null
+  let entityCreate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.create) {
-      rolCreate = <CreateButton basePath={ basePath } />
+      entityCreate = <CreateButton basePath={ basePath } />
     }
   })
 
@@ -57,28 +57,28 @@ const ListActions = (props) => {
         })
       }
       {
-        rolCreate
+        entityCreate
       }
     </TopToolbar>
   );
 };
 
-const BulkDeleteRolButton = () => {};
+const BulkDeleteEntityButton = () => {};
 
-export const RolList = (props) => {
+export const EntityList = (props) => {
 
-  let rolReturn = null
-  let rolUpdate = null
+  let entityReturn = null
+  let entityUpdate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.update) {
-      rolUpdate = <EditButton />
+      entityUpdate = <EditButton />
     }
   })
 
   let grid = <Datagrid>
     {
-      rolUpdate
+      entityUpdate
     }
     <TextField source="name" />
     <TextField source="operationType" />
@@ -92,65 +92,58 @@ export const RolList = (props) => {
     <DateField source="updateDate" />
   </Datagrid>
 
-  let rolDelete = (child) => {
+  let entityDelete = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
     >{ child }</List>
   }
   
-  let rolList = (child) => {
+  let entityList = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
-      bulkActionButtons={ BulkDeleteRolButton }
+      bulkActionButtons={ BulkDeleteEntityButton }
     >{ child }</List>
   }
 
-  let rolDeleteBoolean = false
-  let rolListBoolean = false
+  let entityDeleteBoolean = false
+  let entityListBoolean = false
 
   props.permissions.map(perm => {
     if(perm.permission == props.delete) {
-      rolDeleteBoolean = true
+      entityDeleteBoolean = true
     }
     if(perm.permission == props.list) {
-      rolListBoolean = true
+      entityListBoolean = true
     }
   })
 
-  if(rolListBoolean) {
-    rolReturn = rolList
-    if(rolDeleteBoolean) {
-      rolReturn = rolDelete
+  if(entityListBoolean) {
+    entityReturn = entityList
+    if(entityDeleteBoolean) {
+      entityReturn = entityDelete
     }
   }
 
-  return rolReturn(grid)
+  return entityReturn(grid)
 };
 
 let form = (id) => {
   return <SimpleForm>
     { id }
     <TextInput source="name" />
-    <ArrayInput source="permission">
-      <SimpleFormIterator>
-        <ReferenceInput perPage={ 10000 } label="permission" source="permission" reference="permission">
-          <SelectInput optionText="name" />
-        </ReferenceInput>
-      </SimpleFormIterator>
-    </ArrayInput>
   </SimpleForm>
 }
 
-export const RolEdit = props => {
+export const EntityEdit = props => {
   let id = <TextInput disabled source="id" />
   return <Edit {...props}>
     { form(id) }
   </Edit>
 };
 
-export const RolCreate = props => (
+export const EntityCreate = props => (
   <Create {...props}>
     { form() }
   </Create>

@@ -8,9 +8,10 @@ import Dashboard from './Entities/Home';
 import NotFound from './Entities/NotFoundPage';
 
 import { UserList, UserCreate, UserEdit } from './Entities/User'
-import { PermissionList, PermissionCreate, PermissionEdit } from './Entities/Permission'
+import { PermissionList } from './Entities/Permission'
 import { RolList, RolCreate, RolEdit } from './Entities/Rol'
-import { LinkList, LinkCreate, LinkEdit } from './Entities/Link'
+import { MagnitudeList, MagnitudeCreate, MagnitudeEdit } from './Entities/Magnitude'
+// entity
 
 const resourceF = (entity, Entity, props, permissionList, base) => {
 	let propsReturn = { ...props };
@@ -65,23 +66,9 @@ const App = () => (
 					/>
 				)
 
-				resources.push(
-					<Resource 
-						name='rol' 
-						list={(props) => { return resourceF('Rol', RolList, props, permissionList, base) }}
-						edit={(props) => { return resourceF('Rol', RolEdit, props, permissionList, base) }}
-						create={(props) => { return resourceF('Rol', RolCreate, props, permissionList, base) }}
-					/>
-				)
-
-				resources.push(
-					<Resource 
-						name='link' 
-						list={(props) => { return resourceF('Link', LinkList, props, permissionList, base) }}
-						edit={(props) => { return resourceF('Link', LinkEdit, props, permissionList, base) }}
-						create={(props) => { return resourceF('Link', LinkCreate, props, permissionList, base) }}
-					/>
-				)
+				resources.push(<Resource name='rol' list={(props) => { return resourceF('Rol', RolList, props, permissionList, base) }} edit={(props) => { return resourceF('Rol', RolEdit, props, permissionList, base) }} create={(props) => { return resourceF('Rol', RolCreate, props, permissionList, base) }} /> )
+				resources.push(<Resource name='magnitude' list={(props) => { return resourceF('Magnitude', MagnitudeList, props, permissionList, base) }} edit={(props) => { return resourceF('Magnitude', MagnitudeEdit, props, permissionList, base) }} create={(props) => { return resourceF('Magnitude', MagnitudeCreate, props, permissionList, base) }} /> )
+				// push
 
 				return resources
 			}

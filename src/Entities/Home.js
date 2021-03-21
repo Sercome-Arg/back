@@ -1,9 +1,7 @@
 import * as React from "react";
-import { Card, CardContent, CardHeader } from '@material-ui/core';
-import { Link } from "react-router-dom";
+import { Card, CardHeader } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,15 +15,6 @@ export default () => {
   const classes = useStyles();
 
   return <Card>
-    <CardHeader title="Welcome to the administration" />
-    <CardContent>
-      <div className={classes.root}>
-        <Link to='/user/bulk'>
-          <Button variant="contained" color="primary">
-            Carga masiva de usuarios
-          </Button>
-        </Link>
-      </div>
-    </CardContent>
+    <CardHeader title="Welcome to the administration - Sercome Argentina" />
   </Card>
 };
