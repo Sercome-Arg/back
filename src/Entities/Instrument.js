@@ -37,11 +37,11 @@ const ListActions = (props) => {
     showFilter,
   } = useListContext();
 
-  let magnitudeCreate = null
+  let instrumentCreate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.create) {
-      magnitudeCreate = <CreateButton basePath={ basePath } />
+      instrumentCreate = <CreateButton basePath={ basePath } />
     }
   })
 
@@ -57,31 +57,30 @@ const ListActions = (props) => {
         })
       }
       {
-        magnitudeCreate
+        instrumentCreate
       }
     </TopToolbar>
   );
 };
 
-const BulkDeleteMagnitudeButton = () => {};
+const BulkDeleteInstrumentButton = () => {};
 
-export const MagnitudeList = (props) => {
+export const InstrumentList = (props) => {
 
-  let magnitudeReturn = null
-  let magnitudeUpdate = null
+  let instrumentReturn = null
+  let instrumentUpdate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.update) {
-      magnitudeUpdate = <EditButton />
+      instrumentUpdate = <EditButton />
     }
   })
 
   let grid = <Datagrid>
     {
-      magnitudeUpdate
+      instrumentUpdate
     }
     <TextField source="name" />
-    <TextField source="unit" />
     <TextField source="operationType" />
     <ReferenceField source="creationUser" reference="user">
       <TextField source="email" />
@@ -93,44 +92,44 @@ export const MagnitudeList = (props) => {
     <DateField source="updateDate" />
   </Datagrid>
 
-  let magnitudeDelete = (child) => {
+  let instrumentDelete = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
     >{ child }</List>
   }
   
-  let magnitudeList = (child) => {
+  let instrumentList = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
-      bulkActionButtons={ BulkDeleteMagnitudeButton }
+      bulkActionButtons={ BulkDeleteInstrumentButton }
     >{ child }</List>
   }
 
-  let magnitudeDeleteBoolean = false
-  let magnitudeListBoolean = false
+  let instrumentDeleteBoolean = false
+  let instrumentListBoolean = false
 
   props.permissions.map(perm => {
     if(perm.permission == props.delete) {
-      magnitudeDeleteBoolean = true
+      instrumentDeleteBoolean = true
     }
     if(perm.permission == props.list) {
-      magnitudeListBoolean = true
+      instrumentListBoolean = true
     }
   })
 
-  if(magnitudeListBoolean) {
-    magnitudeReturn = magnitudeList
-    if(magnitudeDeleteBoolean) {
-      magnitudeReturn = magnitudeDelete
+  if(instrumentListBoolean) {
+    instrumentReturn = instrumentList
+    if(instrumentDeleteBoolean) {
+      instrumentReturn = instrumentDelete
     }
   }
 
-  if(magnitudeReturn === null) {
+  if(instrumentReturn === null) {
     return null
   } else {
-    return magnitudeReturn(grid)
+    return instrumentReturn(grid)
   }
 };
 
@@ -138,18 +137,17 @@ let form = (id) => {
   return <SimpleForm>
     { id }
     <TextInput source="name" />
-    <TextInput source="unit" />
   </SimpleForm>
 }
 
-export const MagnitudeEdit = props => {
+export const InstrumentEdit = props => {
   let id = <TextInput disabled source="id" />
   return <Edit {...props}>
     { form(id) }
   </Edit>
 };
 
-export const MagnitudeCreate = props => (
+export const InstrumentCreate = props => (
   <Create {...props}>
     { form() }
   </Create>

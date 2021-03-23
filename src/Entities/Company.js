@@ -37,11 +37,11 @@ const ListActions = (props) => {
     showFilter,
   } = useListContext();
 
-  let magnitudeCreate = null
+  let companyCreate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.create) {
-      magnitudeCreate = <CreateButton basePath={ basePath } />
+      companyCreate = <CreateButton basePath={ basePath } />
     }
   })
 
@@ -57,31 +57,30 @@ const ListActions = (props) => {
         })
       }
       {
-        magnitudeCreate
+        companyCreate
       }
     </TopToolbar>
   );
 };
 
-const BulkDeleteMagnitudeButton = () => {};
+const BulkDeleteCompanyButton = () => {};
 
-export const MagnitudeList = (props) => {
+export const CompanyList = (props) => {
 
-  let magnitudeReturn = null
-  let magnitudeUpdate = null
+  let companyReturn = null
+  let companyUpdate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.update) {
-      magnitudeUpdate = <EditButton />
+      companyUpdate = <EditButton />
     }
   })
 
   let grid = <Datagrid>
     {
-      magnitudeUpdate
+      companyUpdate
     }
     <TextField source="name" />
-    <TextField source="unit" />
     <TextField source="operationType" />
     <ReferenceField source="creationUser" reference="user">
       <TextField source="email" />
@@ -93,44 +92,44 @@ export const MagnitudeList = (props) => {
     <DateField source="updateDate" />
   </Datagrid>
 
-  let magnitudeDelete = (child) => {
+  let companyDelete = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
     >{ child }</List>
   }
   
-  let magnitudeList = (child) => {
+  let companyList = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
-      bulkActionButtons={ BulkDeleteMagnitudeButton }
+      bulkActionButtons={ BulkDeleteCompanyButton }
     >{ child }</List>
   }
 
-  let magnitudeDeleteBoolean = false
-  let magnitudeListBoolean = false
+  let companyDeleteBoolean = false
+  let companyListBoolean = false
 
   props.permissions.map(perm => {
     if(perm.permission == props.delete) {
-      magnitudeDeleteBoolean = true
+      companyDeleteBoolean = true
     }
     if(perm.permission == props.list) {
-      magnitudeListBoolean = true
+      companyListBoolean = true
     }
   })
 
-  if(magnitudeListBoolean) {
-    magnitudeReturn = magnitudeList
-    if(magnitudeDeleteBoolean) {
-      magnitudeReturn = magnitudeDelete
+  if(companyListBoolean) {
+    companyReturn = companyList
+    if(companyDeleteBoolean) {
+      companyReturn = companyDelete
     }
   }
 
-  if(magnitudeReturn === null) {
+  if(companyReturn === null) {
     return null
   } else {
-    return magnitudeReturn(grid)
+    return companyReturn(grid)
   }
 };
 
@@ -138,18 +137,17 @@ let form = (id) => {
   return <SimpleForm>
     { id }
     <TextInput source="name" />
-    <TextInput source="unit" />
   </SimpleForm>
 }
 
-export const MagnitudeEdit = props => {
+export const CompanyEdit = props => {
   let id = <TextInput disabled source="id" />
   return <Edit {...props}>
     { form(id) }
   </Edit>
 };
 
-export const MagnitudeCreate = props => (
+export const CompanyCreate = props => (
   <Create {...props}>
     { form() }
   </Create>

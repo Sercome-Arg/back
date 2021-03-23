@@ -126,7 +126,11 @@ export const EntityList = (props) => {
     }
   }
 
-  return entityReturn(grid)
+  if(entityReturn === null) {
+    return null
+  } else {
+    return entityReturn(grid)
+  }
 };
 
 let form = (id) => {

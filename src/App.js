@@ -11,6 +11,8 @@ import { UserList, UserCreate, UserEdit } from './Entities/User'
 import { PermissionList } from './Entities/Permission'
 import { RolList, RolCreate, RolEdit } from './Entities/Rol'
 import { MagnitudeList, MagnitudeCreate, MagnitudeEdit } from './Entities/Magnitude'
+import { InstrumentList, InstrumentCreate, InstrumentEdit } from './Entities/Instrument'
+import { CompanyList, CompanyCreate, CompanyEdit } from './Entities/Company'
 // entity
 
 const resourceF = (entity, Entity, props, permissionList, base) => {
@@ -68,6 +70,8 @@ const App = () => (
 
 				resources.push(<Resource name='rol' list={(props) => { return resourceF('Rol', RolList, props, permissionList, base) }} edit={(props) => { return resourceF('Rol', RolEdit, props, permissionList, base) }} create={(props) => { return resourceF('Rol', RolCreate, props, permissionList, base) }} /> )
 				resources.push(<Resource name='magnitude' list={(props) => { return resourceF('Magnitude', MagnitudeList, props, permissionList, base) }} edit={(props) => { return resourceF('Magnitude', MagnitudeEdit, props, permissionList, base) }} create={(props) => { return resourceF('Magnitude', MagnitudeCreate, props, permissionList, base) }} /> )
+				resources.push(<Resource name='instrument' list={(props) => { return resourceF('Instrument', InstrumentList, props, permissionList, base) }} edit={(props) => { return resourceF('Instrument', InstrumentEdit, props, permissionList, base) }} create={(props) => { return resourceF('Instrument', InstrumentCreate, props, permissionList, base) }} /> )
+				resources.push(<Resource name='company' list={(props) => { return resourceF('Company', CompanyList, props, permissionList, base) }} edit={(props) => { return resourceF('Company', CompanyEdit, props, permissionList, base) }} create={(props) => { return resourceF('Company', CompanyCreate, props, permissionList, base) }} /> )
 				// push
 
 				return resources
