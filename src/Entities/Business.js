@@ -37,11 +37,11 @@ const ListActions = (props) => {
     showFilter,
   } = useListContext();
 
-  let companyCreate = null
+  let businessCreate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.create) {
-      companyCreate = <CreateButton basePath={ basePath } />
+      businessCreate = <CreateButton basePath={ basePath } />
     }
   })
 
@@ -57,28 +57,28 @@ const ListActions = (props) => {
         })
       }
       {
-        companyCreate
+        businessCreate
       }
     </TopToolbar>
   );
 };
 
-const BulkDeleteCompanyButton = () => {};
+const BulkDeleteBusinessButton = () => {};
 
-export const CompanyList = (props) => {
+export const BusinessList = (props) => {
 
-  let companyReturn = null
-  let companyUpdate = null
+  let businessReturn = null
+  let businessUpdate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.update) {
-      companyUpdate = <EditButton />
+      businessUpdate = <EditButton />
     }
   })
 
   let grid = <Datagrid>
     {
-      companyUpdate
+      businessUpdate
     }
     <TextField source="name" />
     <TextField source="operationType" />
@@ -92,62 +92,72 @@ export const CompanyList = (props) => {
     <DateField source="updateDate" />
   </Datagrid>
 
-  let companyDelete = (child) => {
+  let businessDelete = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
     >{ child }</List>
   }
   
-  let companyList = (child) => {
+  let businessList = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
-      bulkActionButtons={ BulkDeleteCompanyButton }
+      bulkActionButtons={ BulkDeleteBusinessButton }
     >{ child }</List>
   }
 
-  let companyDeleteBoolean = false
-  let companyListBoolean = false
+  let businessDeleteBoolean = false
+  let businessListBoolean = false
 
   props.permissions.map(perm => {
     if(perm.permission == props.delete) {
-      companyDeleteBoolean = true
+      businessDeleteBoolean = true
     }
     if(perm.permission == props.list) {
-      companyListBoolean = true
+      businessListBoolean = true
     }
   })
 
-  if(companyListBoolean) {
-    companyReturn = companyList
-    if(companyDeleteBoolean) {
-      companyReturn = companyDelete
+  if(businessListBoolean) {
+    businessReturn = businessList
+    if(businessDeleteBoolean) {
+      businessReturn = businessDelete
     }
   }
 
-  if(companyReturn === null) {
+  if(businessReturn === null) {
     return null
   } else {
-    return companyReturn(grid)
+    return businessReturn(grid)
   }
 };
 
 let form = (id) => {
   return <SimpleForm>
     { id }
+    <TextInput disable source="id" />
     <TextInput source="name" />
+    <TextInput source="area" />
+    <TextInput source="adress" />
+    <TextInput source="agent" />
+    <TextInput source="mail" />
+    <TextInput source="process" />
+    <TextInput source="alert" />
+    <TextInput source="phone" />
+    <TextInput source="CUIT" />
+    
   </SimpleForm>
 }
 
-export const CompanyEdit = props => {
+export const BusinessEdit = props => {
   let id = <TextInput disabled source="id" />
   return <Edit {...props}>
     { form(id) }
   </Edit>
 };
 
-export const CompanyCreate = props => (
+export const BusinessCreate = props => (
   <Create {...props}>
     { form() }
   </Create>

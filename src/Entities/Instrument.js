@@ -137,6 +137,7 @@ let form = (id) => {
   return <SimpleForm>
     { id }
     <TextInput source="name" />
+    <TextInput source="business" />
   </SimpleForm>
 }
 
