@@ -90,6 +90,9 @@ export const InstrumentList = (props) => {
     </ReferenceField>
     <DateField source="creationDate" />
     <DateField source="updateDate" />
+    <ReferenceField source="businessList" reference="name">
+      <TextField source="name" />
+    </ReferenceField>
   </Datagrid>
 
   let instrumentDelete = (child) => {
@@ -137,7 +140,10 @@ let form = (id) => {
   return <SimpleForm>
     { id }
     <TextInput source="name" />
-    <TextInput source="business" />
+    <ReferenceInput source="businessList" reference="name">
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+    <TextInput source="unity" />
   </SimpleForm>
 }
 

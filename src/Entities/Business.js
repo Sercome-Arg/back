@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cloneElement } from 'react';
-import { 
+import {
   useListContext,
   TopToolbar,
   CreateButton,
@@ -40,8 +40,8 @@ const ListActions = (props) => {
   let businessCreate = null
 
   props.permissions.map(perm => {
-    if(perm.permission == props.create) {
-      businessCreate = <CreateButton basePath={ basePath } />
+    if (perm.permission == props.create) {
+      businessCreate = <CreateButton basePath={basePath} />
     }
   })
 
@@ -63,7 +63,7 @@ const ListActions = (props) => {
   );
 };
 
-const BulkDeleteBusinessButton = () => {};
+const BulkDeleteBusinessButton = () => { };
 
 export const BusinessList = (props) => {
 
@@ -71,7 +71,7 @@ export const BusinessList = (props) => {
   let businessUpdate = null
 
   props.permissions.map(perm => {
-    if(perm.permission == props.update) {
+    if (perm.permission == props.update) {
       businessUpdate = <EditButton />
     }
   })
@@ -93,40 +93,40 @@ export const BusinessList = (props) => {
   </Datagrid>
 
   let businessDelete = (child) => {
-    return <List 
-      {...props} 
-      actions={<ListActions permissions={ props.permissions } create={ props.create } />}
-    >{ child }</List>
+    return <List
+      {...props}
+      actions={<ListActions permissions={props.permissions} create={props.create} />}
+    >{child}</List>
   }
-  
+
   let businessList = (child) => {
-    return <List 
-      {...props} 
-      actions={<ListActions permissions={ props.permissions } create={ props.create } />}
-      bulkActionButtons={ BulkDeleteBusinessButton }
-    >{ child }</List>
+    return <List
+      {...props}
+      actions={<ListActions permissions={props.permissions} create={props.create} />}
+      bulkActionButtons={BulkDeleteBusinessButton}
+    >{child}</List>
   }
 
   let businessDeleteBoolean = false
   let businessListBoolean = false
 
   props.permissions.map(perm => {
-    if(perm.permission == props.delete) {
+    if (perm.permission == props.delete) {
       businessDeleteBoolean = true
     }
-    if(perm.permission == props.list) {
+    if (perm.permission == props.list) {
       businessListBoolean = true
     }
   })
 
-  if(businessListBoolean) {
+  if (businessListBoolean) {
     businessReturn = businessList
-    if(businessDeleteBoolean) {
+    if (businessDeleteBoolean) {
       businessReturn = businessDelete
     }
   }
 
-  if(businessReturn === null) {
+  if (businessReturn === null) {
     return null
   } else {
     return businessReturn(grid)
@@ -135,30 +135,27 @@ export const BusinessList = (props) => {
 
 let form = (id) => {
   return <SimpleForm>
-    { id }
-    <TextInput disable source="id" />
+    {id}
     <TextInput source="name" />
-    <TextInput source="area" />
     <TextInput source="adress" />
-    <TextInput source="agent" />
-    <TextInput source="mail" />
-    <TextInput source="process" />
-    <TextInput source="alert" />
     <TextInput source="phone" />
-    <TextInput source="CUIT" />
-    
+    <TextInput source="email" />
+    <TextInput source="area" />
+    <TextInput source="agent" />
+    <TextInput source="process" />
+    <TextInput source="cuit" />
   </SimpleForm>
 }
 
 export const BusinessEdit = props => {
   let id = <TextInput disabled source="id" />
   return <Edit {...props}>
-    { form(id) }
+    {form(id)}
   </Edit>
 };
 
 export const BusinessCreate = props => (
   <Create {...props}>
-    { form() }
+    { form()}
   </Create>
 );
