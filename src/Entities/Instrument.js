@@ -140,10 +140,12 @@ let form = (id) => {
   return <SimpleForm>
     { id }
     <TextInput source="name" />
-    <ReferenceInput source="businessList" reference="name">
-        <SelectInput optionText="name" />
-      </ReferenceInput>
-    <TextInput source="unity" />
+    <ReferenceInput source="business" reference="business">
+      <SelectInput optionText="name" />
+    </ReferenceInput>
+    <ReferenceInput source="magnitude" reference="magnitude">
+      <SelectInput optionText="name" />
+    </ReferenceInput>
   </SimpleForm>
 }
 

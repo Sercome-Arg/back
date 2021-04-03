@@ -73,8 +73,6 @@ const App = () => (
 				resources.push(<Resource name='magnitude' list={(props) => { return resourceF('Magnitude', MagnitudeList, props, permissionList, base) }} edit={(props) => { return resourceF('Magnitude', MagnitudeEdit, props, permissionList, base) }} create={(props) => { return resourceF('Magnitude', MagnitudeCreate, props, permissionList, base) }} /> )
 				resources.push(<Resource name='instrument' list={(props) => { return resourceF('Instrument', InstrumentList, props, permissionList, base) }} edit={(props) => { return resourceF('Instrument', InstrumentEdit, props, permissionList, base) }} create={(props) => { return resourceF('Instrument', InstrumentCreate, props, permissionList, base) }} /> )
 				resources.push(<Resource name='business' list={(props) => { return resourceF('Business', BusinessList, props, permissionList, base) }} edit={(props) => { return resourceF('Business', BusinessEdit, props, permissionList, base) }} create={(props) => { return resourceF('Business', BusinessCreate, props, permissionList, base) }} /> )
-				resources.push(<Resource name='business' list={(props) => { return resourceF('Business', BusinessList, props, permissionList, base) }} edit={(props) => { return resourceF('Business', BusinessEdit, props, permissionList, base) }} create={(props) => { return resourceF('Business', BusinessCreate, props, permissionList, base) }} /> )
-				resources.push(<Resource name='business' list={(props) => { return resourceF('Business', BusinessList, props, permissionList, base) }} edit={(props) => { return resourceF('Business', BusinessEdit, props, permissionList, base) }} create={(props) => { return resourceF('Business', BusinessCreate, props, permissionList, base) }} /> )
 				// push
 
 				return resources
