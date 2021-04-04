@@ -126,7 +126,11 @@ export const RolList = (props) => {
     }
   }
 
-  return rolReturn(grid)
+  if(rolReturn === null) {
+    return null
+  } else {
+    return rolReturn(grid)
+  }
 };
 
 let form = (id) => {

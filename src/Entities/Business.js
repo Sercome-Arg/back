@@ -84,6 +84,9 @@ export const BusinessList = (props) => {
       businessUpdate
     }
     <TextField source="name" />
+    <ReferenceField source="agent" reference="user">
+      <TextField source="email" />
+    </ReferenceField>
     <ReferenceField source="area" reference="area">
       <TextField source="name" />
     </ReferenceField>
@@ -138,11 +141,14 @@ let form = (id) => {
   return <SimpleForm>
     {id}
     <TextInput source="name" />
+    <ReferenceInput source="agent" reference="user">
+      <SelectInput optionText="email" />
+    </ReferenceInput>
     <ReferenceInput source="area" reference="area">
       <SelectInput optionText="name" />
     </ReferenceInput>
     <TextInput source="address" />
-    <TextInput source="email" />
+    <TextInput source="email" type='email' />
     <TextInput source="phone" />
     <NumberInput source="CUIT" />
   </SimpleForm>

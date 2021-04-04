@@ -81,6 +81,7 @@ export const UserList = (props) => {
       <ReferenceField source="rol" reference="rol">
         <TextField source="name" />
       </ReferenceField>
+      <TextField source="name" />
       <EmailField source="email" />
       <ReferenceField source="creationUser" reference="user">
         <TextField source="email" />
@@ -98,6 +99,7 @@ export const UserEdit = props => (
   <Edit {...props}>
     <SimpleForm >
       <TextInput disabled source="id" />
+      <TextInput source="name" />
       <TextInput source="email" type="email" />
       <ReferenceInput source="rol" reference="rol">
         <SelectInput optionText="name" />
@@ -109,6 +111,7 @@ export const UserEdit = props => (
 export const UserCreate = props => (
   <Create {...props}>
     <SimpleForm>
+      <TextInput source="name" />
       <TextInput source="email" type="email" />
       <ReferenceInput source="rol" reference="rol">
         <SelectInput optionText="name" />

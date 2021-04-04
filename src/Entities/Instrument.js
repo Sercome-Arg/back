@@ -19,7 +19,8 @@ import {
   EditButton,
   ArrayInput,
   SimpleFormIterator,
-  NumberInput
+  NumberInput,
+  Area
 } from 'react-admin';
 
 const ListActions = (props) => {
@@ -82,7 +83,7 @@ export const InstrumentList = (props) => {
       instrumentUpdate
     }
     <TextField source="name" />
-    <TextField source="ID" />
+    <TextField label='ID' source="ID" />
     <TextField source="brand" />
     <TextField source="version" />
     <TextField source="numberOfSerie" />
@@ -146,7 +147,7 @@ let form = (id) => {
   return <SimpleForm>
     { id }
     <TextInput source="name" />
-    <TextInput source="ID" />
+    <TextInput label='ID' source="ID" />
     <TextInput source="brand" />
     <TextInput source="version" />
     <TextInput source="numberOfSerie" />
@@ -163,6 +164,7 @@ let form = (id) => {
     <NumberInput source="maximumWorkingRange" />
     <NumberInput source="minimumMeasurementRange" />
     <NumberInput source="maximumMeasurementRange" />
+    <TextInput source="observation" multiline />
   </SimpleForm>
 }
 

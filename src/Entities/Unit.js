@@ -81,6 +81,10 @@ export const UnitList = (props) => {
       unitUpdate
     }
     <TextField source="name" />
+    <TextField source="symbol" />
+    <ReferenceField source="magnitude" reference="magnitude">
+      <TextField source="name" />
+    </ReferenceField>
     <TextField source="operationType" />
     <ReferenceField source="creationUser" reference="user">
       <TextField source="email" />
@@ -137,6 +141,10 @@ let form = (id) => {
   return <SimpleForm>
     { id }
     <TextInput source="name" />
+    <TextInput source="symbol" />
+    <ReferenceInput source="magnitude" reference="magnitude">
+      <SelectInput optionText="name" />
+    </ReferenceInput>
   </SimpleForm>
 }
 
