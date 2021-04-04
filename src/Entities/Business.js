@@ -91,15 +91,6 @@ export const BusinessList = (props) => {
     <EmailField source="email" />
     <TextField source="phone" />
     <TextField label='CUIT' source="CUIT" />
-    {/* <TextField source="operationType" />
-    <ReferenceField source="creationUser" reference="user">
-      <TextField source="email" />
-    </ReferenceField>
-    <ReferenceField source="updateUser" reference="user">
-      <TextField source="email" />
-    </ReferenceField>
-    <DateField source="creationDate" />
-    <DateField source="updateDate" /> */}
   </Datagrid>
 
   let businessDelete = (child) => {

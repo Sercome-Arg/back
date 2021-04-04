@@ -17,6 +17,7 @@ import { BusinessList, BusinessCreate, BusinessEdit } from './Entities/Business'
 import { CertificateList, CertificateCreate, CertificateEdit } from './Entities/Certificate'
 import { CalibrationList, CalibrationCreate, CalibrationEdit } from './Entities/Calibration'
 import { AreaList, AreaCreate, AreaEdit } from './Entities/Area'
+import { UnitList, UnitCreate, UnitEdit } from './Entities/Unit'
 // entity
 
 const resourceF = (entity, Entity, props, permissionList, base) => {
@@ -79,6 +80,7 @@ const App = () => (
 				resources.push(<Resource name='certificate' list={(props) => { return resourceF('Certificate', CertificateList, props, permissionList, base) }} edit={(props) => { return resourceF('Certificate', CertificateEdit, props, permissionList, base) }} create={(props) => { return resourceF('Certificate', CertificateCreate, props, permissionList, base) }} /> )
 				resources.push(<Resource name='calibration' list={(props) => { return resourceF('Calibration', CalibrationList, props, permissionList, base) }} edit={(props) => { return resourceF('Calibration', CalibrationEdit, props, permissionList, base) }} create={(props) => { return resourceF('Calibration', CalibrationCreate, props, permissionList, base) }} /> )
 				resources.push(<Resource name='area' list={(props) => { return resourceF('Area', AreaList, props, permissionList, base) }} edit={(props) => { return resourceF('Area', AreaEdit, props, permissionList, base) }} create={(props) => { return resourceF('Area', AreaCreate, props, permissionList, base) }} /> )
+				resources.push(<Resource name='unit' list={(props) => { return resourceF('Unit', UnitList, props, permissionList, base) }} edit={(props) => { return resourceF('Unit', UnitEdit, props, permissionList, base) }} create={(props) => { return resourceF('Unit', UnitCreate, props, permissionList, base) }} /> )
 				// push
 
 				return resources

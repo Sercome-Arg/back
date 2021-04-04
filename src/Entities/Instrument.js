@@ -18,7 +18,8 @@ import {
   ReferenceField,
   EditButton,
   ArrayInput,
-  SimpleFormIterator
+  SimpleFormIterator,
+  NumberInput
 } from 'react-admin';
 
 const ListActions = (props) => {
@@ -81,21 +82,23 @@ export const InstrumentList = (props) => {
       instrumentUpdate
     }
     <TextField source="name" />
+    <TextField source="ID" />
+    <TextField source="brand" />
+    <TextField source="version" />
+    <TextField source="numberOfSerie" />
     <ReferenceField source="business" reference="business">
       <TextField source="name" />
     </ReferenceField>
     <ReferenceField source="magnitude" reference="magnitude">
       <TextField source="name" />
     </ReferenceField>
-    <TextField source="operationType" />
-    <ReferenceField source="creationUser" reference="user">
-      <TextField source="email" />
+    <ReferenceField source="unit" reference="unit">
+      <TextField source="name" />
     </ReferenceField>
-    <ReferenceField source="updateUser" reference="user">
-      <TextField source="email" />
-    </ReferenceField>
-    <DateField source="creationDate" />
-    <DateField source="updateDate" />
+    <TextField source="minimumWorkingRange" />
+    <TextField source="maximumWorkingRange" />
+    <TextField source="minimumMeasurementRange" />
+    <TextField source="maximumMeasurementRange" />
   </Datagrid>
 
   let instrumentDelete = (child) => {
@@ -143,12 +146,23 @@ let form = (id) => {
   return <SimpleForm>
     { id }
     <TextInput source="name" />
+    <TextInput source="ID" />
+    <TextInput source="brand" />
+    <TextInput source="version" />
+    <TextInput source="numberOfSerie" />
     <ReferenceInput source="business" reference="business">
       <SelectInput optionText="name" />
     </ReferenceInput>
     <ReferenceInput source="magnitude" reference="magnitude">
       <SelectInput optionText="name" />
     </ReferenceInput>
+    <ReferenceInput source="unit" reference="unit">
+      <SelectInput optionText="name" />
+    </ReferenceInput>
+    <NumberInput source="minimumWorkingRange" />
+    <NumberInput source="maximumWorkingRange" />
+    <NumberInput source="minimumMeasurementRange" />
+    <NumberInput source="maximumMeasurementRange" />
   </SimpleForm>
 }
 

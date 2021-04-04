@@ -37,11 +37,11 @@ const ListActions = (props) => {
     showFilter,
   } = useListContext();
 
-  let magnitudeCreate = null
+  let unitCreate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.create) {
-      magnitudeCreate = <CreateButton basePath={ basePath } />
+      unitCreate = <CreateButton basePath={ basePath } />
     }
   })
 
@@ -57,28 +57,28 @@ const ListActions = (props) => {
         })
       }
       {
-        magnitudeCreate
+        unitCreate
       }
     </TopToolbar>
   );
 };
 
-const BulkDeleteMagnitudeButton = () => {};
+const BulkDeleteUnitButton = () => {};
 
-export const MagnitudeList = (props) => {
+export const UnitList = (props) => {
 
-  let magnitudeReturn = null
-  let magnitudeUpdate = null
+  let unitReturn = null
+  let unitUpdate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.update) {
-      magnitudeUpdate = <EditButton />
+      unitUpdate = <EditButton />
     }
   })
 
   let grid = <Datagrid>
     {
-      magnitudeUpdate
+      unitUpdate
     }
     <TextField source="name" />
     <TextField source="operationType" />
@@ -92,44 +92,44 @@ export const MagnitudeList = (props) => {
     <DateField source="updateDate" />
   </Datagrid>
 
-  let magnitudeDelete = (child) => {
+  let unitDelete = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
     >{ child }</List>
   }
   
-  let magnitudeList = (child) => {
+  let unitList = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
-      bulkActionButtons={ BulkDeleteMagnitudeButton }
+      bulkActionButtons={ BulkDeleteUnitButton }
     >{ child }</List>
   }
 
-  let magnitudeDeleteBoolean = false
-  let magnitudeListBoolean = false
+  let unitDeleteBoolean = false
+  let unitListBoolean = false
 
   props.permissions.map(perm => {
     if(perm.permission == props.delete) {
-      magnitudeDeleteBoolean = true
+      unitDeleteBoolean = true
     }
     if(perm.permission == props.list) {
-      magnitudeListBoolean = true
+      unitListBoolean = true
     }
   })
 
-  if(magnitudeListBoolean) {
-    magnitudeReturn = magnitudeList
-    if(magnitudeDeleteBoolean) {
-      magnitudeReturn = magnitudeDelete
+  if(unitListBoolean) {
+    unitReturn = unitList
+    if(unitDeleteBoolean) {
+      unitReturn = unitDelete
     }
   }
 
-  if(magnitudeReturn === null) {
+  if(unitReturn === null) {
     return null
   } else {
-    return magnitudeReturn(grid)
+    return unitReturn(grid)
   }
 };
 
@@ -140,14 +140,14 @@ let form = (id) => {
   </SimpleForm>
 }
 
-export const MagnitudeEdit = props => {
+export const UnitEdit = props => {
   let id = <TextInput disabled source="id" />
   return <Edit {...props}>
     { form(id) }
   </Edit>
 };
 
-export const MagnitudeCreate = props => (
+export const UnitCreate = props => (
   <Create {...props}>
     { form() }
   </Create>
