@@ -37,11 +37,11 @@ const ListActions = (props) => {
     showFilter,
   } = useListContext();
 
-  let magnitudeCreate = null
+  let areaCreate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.create) {
-      magnitudeCreate = <CreateButton basePath={ basePath } />
+      areaCreate = <CreateButton basePath={ basePath } />
     }
   })
 
@@ -57,31 +57,30 @@ const ListActions = (props) => {
         })
       }
       {
-        magnitudeCreate
+        areaCreate
       }
     </TopToolbar>
   );
 };
 
-const BulkDeleteMagnitudeButton = () => {};
+const BulkDeleteAreaButton = () => {};
 
-export const MagnitudeList = (props) => {
+export const AreaList = (props) => {
 
-  let magnitudeReturn = null
-  let magnitudeUpdate = null
+  let areaReturn = null
+  let areaUpdate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.update) {
-      magnitudeUpdate = <EditButton />
+      areaUpdate = <EditButton />
     }
   })
 
   let grid = <Datagrid>
     {
-      magnitudeUpdate
+      areaUpdate
     }
     <TextField source="name" />
-    <TextField source="unit" />
     <TextField source="operationType" />
     <ReferenceField source="creationUser" reference="user">
       <TextField source="email" />
@@ -93,44 +92,44 @@ export const MagnitudeList = (props) => {
     <DateField source="updateDate" />
   </Datagrid>
 
-  let magnitudeDelete = (child) => {
+  let areaDelete = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
     >{ child }</List>
   }
   
-  let magnitudeList = (child) => {
+  let areaList = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
-      bulkActionButtons={ BulkDeleteMagnitudeButton }
+      bulkActionButtons={ BulkDeleteAreaButton }
     >{ child }</List>
   }
 
-  let magnitudeDeleteBoolean = false
-  let magnitudeListBoolean = false
+  let areaDeleteBoolean = false
+  let areaListBoolean = false
 
   props.permissions.map(perm => {
     if(perm.permission == props.delete) {
-      magnitudeDeleteBoolean = true
+      areaDeleteBoolean = true
     }
     if(perm.permission == props.list) {
-      magnitudeListBoolean = true
+      areaListBoolean = true
     }
   })
 
-  if(magnitudeListBoolean) {
-    magnitudeReturn = magnitudeList
-    if(magnitudeDeleteBoolean) {
-      magnitudeReturn = magnitudeDelete
+  if(areaListBoolean) {
+    areaReturn = areaList
+    if(areaDeleteBoolean) {
+      areaReturn = areaDelete
     }
   }
 
-  if(magnitudeReturn === null) {
+  if(areaReturn === null) {
     return null
   } else {
-    return magnitudeReturn(grid)
+    return areaReturn(grid)
   }
 };
 
@@ -138,18 +137,17 @@ let form = (id) => {
   return <SimpleForm>
     { id }
     <TextInput source="name" />
-    <TextInput source="unit" helperText='asd' />
   </SimpleForm>
 }
 
-export const MagnitudeEdit = props => {
+export const AreaEdit = props => {
   let id = <TextInput disabled source="id" />
   return <Edit {...props}>
     { form(id) }
   </Edit>
 };
 
-export const MagnitudeCreate = props => (
+export const AreaCreate = props => (
   <Create {...props}>
     { form() }
   </Create>

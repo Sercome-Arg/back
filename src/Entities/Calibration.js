@@ -37,11 +37,11 @@ const ListActions = (props) => {
     showFilter,
   } = useListContext();
 
-  let magnitudeCreate = null
+  let calibrationCreate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.create) {
-      magnitudeCreate = <CreateButton basePath={ basePath } />
+      calibrationCreate = <CreateButton basePath={ basePath } />
     }
   })
 
@@ -57,31 +57,30 @@ const ListActions = (props) => {
         })
       }
       {
-        magnitudeCreate
+        calibrationCreate
       }
     </TopToolbar>
   );
 };
 
-const BulkDeleteMagnitudeButton = () => {};
+const BulkDeleteCalibrationButton = () => {};
 
-export const MagnitudeList = (props) => {
+export const CalibrationList = (props) => {
 
-  let magnitudeReturn = null
-  let magnitudeUpdate = null
+  let calibrationReturn = null
+  let calibrationUpdate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.update) {
-      magnitudeUpdate = <EditButton />
+      calibrationUpdate = <EditButton />
     }
   })
 
   let grid = <Datagrid>
     {
-      magnitudeUpdate
+      calibrationUpdate
     }
     <TextField source="name" />
-    <TextField source="unit" />
     <TextField source="operationType" />
     <ReferenceField source="creationUser" reference="user">
       <TextField source="email" />
@@ -93,44 +92,44 @@ export const MagnitudeList = (props) => {
     <DateField source="updateDate" />
   </Datagrid>
 
-  let magnitudeDelete = (child) => {
+  let calibrationDelete = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
     >{ child }</List>
   }
   
-  let magnitudeList = (child) => {
+  let calibrationList = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
-      bulkActionButtons={ BulkDeleteMagnitudeButton }
+      bulkActionButtons={ BulkDeleteCalibrationButton }
     >{ child }</List>
   }
 
-  let magnitudeDeleteBoolean = false
-  let magnitudeListBoolean = false
+  let calibrationDeleteBoolean = false
+  let calibrationListBoolean = false
 
   props.permissions.map(perm => {
     if(perm.permission == props.delete) {
-      magnitudeDeleteBoolean = true
+      calibrationDeleteBoolean = true
     }
     if(perm.permission == props.list) {
-      magnitudeListBoolean = true
+      calibrationListBoolean = true
     }
   })
 
-  if(magnitudeListBoolean) {
-    magnitudeReturn = magnitudeList
-    if(magnitudeDeleteBoolean) {
-      magnitudeReturn = magnitudeDelete
+  if(calibrationListBoolean) {
+    calibrationReturn = calibrationList
+    if(calibrationDeleteBoolean) {
+      calibrationReturn = calibrationDelete
     }
   }
 
-  if(magnitudeReturn === null) {
+  if(calibrationReturn === null) {
     return null
   } else {
-    return magnitudeReturn(grid)
+    return calibrationReturn(grid)
   }
 };
 
@@ -138,18 +137,17 @@ let form = (id) => {
   return <SimpleForm>
     { id }
     <TextInput source="name" />
-    <TextInput source="unit" helperText='asd' />
   </SimpleForm>
 }
 
-export const MagnitudeEdit = props => {
+export const CalibrationEdit = props => {
   let id = <TextInput disabled source="id" />
   return <Edit {...props}>
     { form(id) }
   </Edit>
 };
 
-export const MagnitudeCreate = props => (
+export const CalibrationCreate = props => (
   <Create {...props}>
     { form() }
   </Create>

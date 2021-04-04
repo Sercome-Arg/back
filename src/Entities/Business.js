@@ -18,7 +18,10 @@ import {
   ReferenceField,
   EditButton,
   ArrayInput,
-  SimpleFormIterator
+  SimpleFormIterator,
+  NumberField,
+  NumberInput,
+  EmailField
 } from 'react-admin';
 
 const ListActions = (props) => {
@@ -81,7 +84,14 @@ export const BusinessList = (props) => {
       businessUpdate
     }
     <TextField source="name" />
-    <TextField source="operationType" />
+    <ReferenceField source="area" reference="area">
+      <TextField source="name" />
+    </ReferenceField>
+    <TextField source="address" />
+    <EmailField source="email" />
+    <TextField source="phone" />
+    <TextField label='CUIT' source="CUIT" />
+    {/* <TextField source="operationType" />
     <ReferenceField source="creationUser" reference="user">
       <TextField source="email" />
     </ReferenceField>
@@ -89,7 +99,7 @@ export const BusinessList = (props) => {
       <TextField source="email" />
     </ReferenceField>
     <DateField source="creationDate" />
-    <DateField source="updateDate" />
+    <DateField source="updateDate" /> */}
   </Datagrid>
 
   let businessDelete = (child) => {
@@ -137,13 +147,13 @@ let form = (id) => {
   return <SimpleForm>
     {id}
     <TextInput source="name" />
-    <TextInput source="adress" />
-    <TextInput source="phone" />
+    <ReferenceInput source="area" reference="area">
+      <SelectInput optionText="name" />
+    </ReferenceInput>
+    <TextInput source="address" />
     <TextInput source="email" />
-    <TextInput source="area" />
-    <TextInput source="agent" />
-    <TextInput source="process" />
-    <TextInput source="cuit" />
+    <TextInput source="phone" />
+    <NumberInput source="CUIT" />
   </SimpleForm>
 }
 

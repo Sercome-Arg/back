@@ -81,6 +81,12 @@ export const InstrumentList = (props) => {
       instrumentUpdate
     }
     <TextField source="name" />
+    <ReferenceField source="business" reference="business">
+      <TextField source="name" />
+    </ReferenceField>
+    <ReferenceField source="magnitude" reference="magnitude">
+      <TextField source="name" />
+    </ReferenceField>
     <TextField source="operationType" />
     <ReferenceField source="creationUser" reference="user">
       <TextField source="email" />
@@ -90,9 +96,6 @@ export const InstrumentList = (props) => {
     </ReferenceField>
     <DateField source="creationDate" />
     <DateField source="updateDate" />
-    <ReferenceField source="businessList" reference="name">
-      <TextField source="name" />
-    </ReferenceField>
   </Datagrid>
 
   let instrumentDelete = (child) => {
