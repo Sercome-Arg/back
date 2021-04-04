@@ -37,11 +37,11 @@ const ListActions = (props) => {
     showFilter,
   } = useListContext();
 
-  let certificateCreate = null
+  let alertCreate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.create) {
-      certificateCreate = <CreateButton basePath={ basePath } />
+      alertCreate = <CreateButton basePath={ basePath } />
     }
   })
 
@@ -57,106 +57,97 @@ const ListActions = (props) => {
         })
       }
       {
-        certificateCreate
+        alertCreate
       }
     </TopToolbar>
   );
 };
 
-const BulkDeleteCertificateButton = () => {};
+const BulkDeleteAlertButton = () => {};
 
-export const CertificateList = (props) => {
+export const AlertList = (props) => {
 
-  let certificateReturn = null
-  let certificateUpdate = null
+  let alertReturn = null
+  let alertUpdate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.update) {
-      certificateUpdate = <EditButton />
+      alertUpdate = <EditButton />
     }
   })
 
   let grid = <Datagrid>
     {
-      certificateUpdate
+      alertUpdate
     }
-    <DateField source="lastAlert" />
-    <DateField source="nextAlert" />
-    <ReferenceField source="calibration" reference="calibration">
-      <TextField source="name" />
+    <TextField source="name" />
+    <TextField source="operationType" />
+    <ReferenceField source="creationUser" reference="user">
+      <TextField source="email" />
     </ReferenceField>
-    <ReferenceField source="business" reference="business">
-      <TextField source="name" />
+    <ReferenceField source="updateUser" reference="user">
+      <TextField source="email" />
     </ReferenceField>
-    <ReferenceField source="instrument" reference="instrument">
-      <TextField source="name" />
-    </ReferenceField>
+    <DateField source="creationDate" />
+    <DateField source="updateDate" />
   </Datagrid>
 
-  let certificateDelete = (child) => {
+  let alertDelete = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
     >{ child }</List>
   }
   
-  let certificateList = (child) => {
+  let alertList = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
-      bulkActionButtons={ BulkDeleteCertificateButton }
+      bulkActionButtons={ BulkDeleteAlertButton }
     >{ child }</List>
   }
 
-  let certificateDeleteBoolean = false
-  let certificateListBoolean = false
+  let alertDeleteBoolean = false
+  let alertListBoolean = false
 
   props.permissions.map(perm => {
     if(perm.permission == props.delete) {
-      certificateDeleteBoolean = true
+      alertDeleteBoolean = true
     }
     if(perm.permission == props.list) {
-      certificateListBoolean = true
+      alertListBoolean = true
     }
   })
 
-  if(certificateListBoolean) {
-    certificateReturn = certificateList
-    if(certificateDeleteBoolean) {
-      certificateReturn = certificateDelete
+  if(alertListBoolean) {
+    alertReturn = alertList
+    if(alertDeleteBoolean) {
+      alertReturn = alertDelete
     }
   }
 
-  if(certificateReturn === null) {
+  if(alertReturn === null) {
     return null
   } else {
-    return certificateReturn(grid)
+    return alertReturn(grid)
   }
 };
 
 let form = (id) => {
   return <SimpleForm>
     { id }
-    <ReferenceInput source="calibration" reference="calibration">
-      <SelectInput optionText="name" />
-    </ReferenceInput>
-    <ReferenceInput source="business" reference="business">
-      <SelectInput optionText="name" />
-    </ReferenceInput>
-    <ReferenceInput source="instrument" reference="instrument">
-      <SelectInput optionText="name" />
-    </ReferenceInput>
+    <TextInput source="name" />
   </SimpleForm>
 }
 
-export const CertificateEdit = props => {
+export const AlertEdit = props => {
   let id = <TextInput disabled source="id" />
   return <Edit {...props}>
     { form(id) }
   </Edit>
 };
 
-export const CertificateCreate = props => (
+export const AlertCreate = props => (
   <Create {...props}>
     { form() }
   </Create>
