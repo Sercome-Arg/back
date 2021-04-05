@@ -3,6 +3,7 @@ import { Admin, Resource } from 'react-admin';
 import dataProvider from './dataProvider';
 import authProvider from './authProvider';
 import customRoutes from './customRoutes';
+import MyLayout from './MyLayout';
 
 import Dashboard from './Entities/Home';
 import NotFound from './Entities/NotFoundPage';
@@ -22,6 +23,8 @@ import { AlertList, AlertCreate, AlertEdit } from './Entities/Alert'
 import { ConfigurationList, ConfigurationCreate, ConfigurationEdit } from './Entities/Configuration'
 // entity
 
+
+
 const resourceF = (entity, Entity, props, permissionList, base) => {
 	let propsReturn = { ...props };
 	propsReturn.permissions = permissionList;
@@ -34,6 +37,7 @@ const resourceF = (entity, Entity, props, permissionList, base) => {
 
 const App = () => (
 	<Admin 
+		layout={MyLayout} 
 		dashboard={ Dashboard } 
 		authProvider={ authProvider } 
 		dataProvider={ dataProvider }
