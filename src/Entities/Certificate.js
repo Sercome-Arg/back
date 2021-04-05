@@ -80,8 +80,6 @@ export const CertificateList = (props) => {
     {
       certificateUpdate
     }
-    <DateField source="lastAlert" />
-    <DateField source="nextAlert" />
     <ReferenceField source="calibration" reference="calibration">
       <TextField source="name" />
     </ReferenceField>
@@ -140,10 +138,10 @@ let form = (id) => {
     <ReferenceInput source="calibration" reference="calibration">
       <SelectInput optionText="name" />
     </ReferenceInput>
-    <ReferenceInput source="business" reference="business">
+    <ReferenceInput source="instrument" reference="instrument">
       <SelectInput optionText="name" />
     </ReferenceInput>
-    <ReferenceInput source="instrument" reference="instrument">
+    <ReferenceInput source="business" reference="business">
       <SelectInput optionText="name" />
     </ReferenceInput>
   </SimpleForm>

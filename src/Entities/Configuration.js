@@ -18,7 +18,10 @@ import {
   ReferenceField,
   EditButton,
   ArrayInput,
-  SimpleFormIterator
+  SimpleFormIterator,
+  DateInput,
+  NumberField,
+  NumberInput
 } from 'react-admin';
 
 const ListActions = (props) => {
@@ -37,11 +40,11 @@ const ListActions = (props) => {
     showFilter,
   } = useListContext();
 
-  let calibrationCreate = null
+  let configurationCreate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.create) {
-      calibrationCreate = <CreateButton basePath={ basePath } />
+      configurationCreate = <CreateButton basePath={ basePath } />
     }
   })
 
@@ -57,102 +60,101 @@ const ListActions = (props) => {
         })
       }
       {
-        calibrationCreate
+        configurationCreate
       }
     </TopToolbar>
   );
 };
 
-const BulkDeleteCalibrationButton = () => {};
+const BulkDeleteConfigurationButton = () => {};
 
-export const CalibrationList = (props) => {
+export const ConfigurationList = (props) => {
 
-  let calibrationReturn = null
-  let calibrationUpdate = null
+  let configurationReturn = null
+  let configurationUpdate = null
 
   props.permissions.map(perm => {
     if(perm.permission == props.update) {
-      calibrationUpdate = <EditButton />
+      configurationUpdate = <EditButton />
     }
   })
 
   let grid = <Datagrid>
     {
-      calibrationUpdate
+      configurationUpdate
     }
-    <TextField source="name" />
-    <DateField source="lastAlert" />
-    <DateField source="nextAlert" />
-    <ReferenceField source="instrument" reference="instrument">
-      <TextField source="name" />
+    <NumberField source="nextAlertYear" />
+    <NumberField source="nextAlertMonth" />
+    <NumberField source="nextAlertDay" />
+    <TextField source="operationType" />
+    <ReferenceField source="creationUser" reference="user">
+      <TextField source="email" />
     </ReferenceField>
-    <ReferenceField source="business" reference="business">
-      <TextField source="name" />
+    <ReferenceField source="updateUser" reference="user">
+      <TextField source="email" />
     </ReferenceField>
+    <DateField source="creationDate" />
+    <DateField source="updateDate" />
   </Datagrid>
 
-  let calibrationDelete = (child) => {
+  let configurationDelete = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
     >{ child }</List>
   }
   
-  let calibrationList = (child) => {
+  let configurationList = (child) => {
     return <List 
       {...props} 
       actions={<ListActions permissions={ props.permissions } create={ props.create } />}
-      bulkActionButtons={ BulkDeleteCalibrationButton }
+      bulkActionButtons={ BulkDeleteConfigurationButton }
     >{ child }</List>
   }
 
-  let calibrationDeleteBoolean = false
-  let calibrationListBoolean = false
+  let configurationDeleteBoolean = false
+  let configurationListBoolean = false
 
   props.permissions.map(perm => {
     if(perm.permission == props.delete) {
-      calibrationDeleteBoolean = true
+      configurationDeleteBoolean = true
     }
     if(perm.permission == props.list) {
-      calibrationListBoolean = true
+      configurationListBoolean = true
     }
   })
 
-  if(calibrationListBoolean) {
-    calibrationReturn = calibrationList
-    if(calibrationDeleteBoolean) {
-      calibrationReturn = calibrationDelete
+  if(configurationListBoolean) {
+    configurationReturn = configurationList
+    if(configurationDeleteBoolean) {
+      configurationReturn = configurationDelete
     }
   }
 
-  if(calibrationReturn === null) {
+  if(configurationReturn === null) {
     return null
   } else {
-    return calibrationReturn(grid)
+    return configurationReturn(grid)
   }
 };
 
 let form = (id) => {
   return <SimpleForm>
     { id }
-    <TextInput source="name" />
-    <ReferenceInput source="instrument" reference="instrument">
-      <SelectInput optionText="name" />
-    </ReferenceInput>
-    <ReferenceInput source="business" reference="business">
-      <SelectInput optionText="name" />
-    </ReferenceInput>
+    <NumberInput source="nextAlertYear" defaultValue='0' />
+    <NumberInput source="nextAlertMonth" defaultValue='0' />
+    <NumberInput source="nextAlertDay" defaultValue='0' />
   </SimpleForm>
 }
 
-export const CalibrationEdit = props => {
+export const ConfigurationEdit = props => {
   let id = <TextInput disabled source="id" />
   return <Edit {...props}>
     { form(id) }
   </Edit>
 };
 
-export const CalibrationCreate = props => (
+export const ConfigurationCreate = props => (
   <Create {...props}>
     { form() }
   </Create>

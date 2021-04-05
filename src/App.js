@@ -19,6 +19,7 @@ import { CalibrationList, CalibrationCreate, CalibrationEdit } from './Entities/
 import { AreaList, AreaCreate, AreaEdit } from './Entities/Area'
 import { UnitList, UnitCreate, UnitEdit } from './Entities/Unit'
 import { AlertList, AlertCreate, AlertEdit } from './Entities/Alert'
+import { ConfigurationList, ConfigurationCreate, ConfigurationEdit } from './Entities/Configuration'
 // entity
 
 const resourceF = (entity, Entity, props, permissionList, base) => {
@@ -83,6 +84,7 @@ const App = () => (
 				resources.push(<Resource name='area' list={(props) => { return resourceF('Area', AreaList, props, permissionList, base) }} edit={(props) => { return resourceF('Area', AreaEdit, props, permissionList, base) }} create={(props) => { return resourceF('Area', AreaCreate, props, permissionList, base) }} /> )
 				resources.push(<Resource name='unit' list={(props) => { return resourceF('Unit', UnitList, props, permissionList, base) }} edit={(props) => { return resourceF('Unit', UnitEdit, props, permissionList, base) }} create={(props) => { return resourceF('Unit', UnitCreate, props, permissionList, base) }} /> )
 				resources.push(<Resource name='alert' list={(props) => { return resourceF('Alert', AlertList, props, permissionList, base) }} edit={(props) => { return resourceF('Alert', AlertEdit, props, permissionList, base) }} create={(props) => { return resourceF('Alert', AlertCreate, props, permissionList, base) }} /> )
+				resources.push(<Resource name='configuration' list={(props) => { return resourceF('Configuration', ConfigurationList, props, permissionList, base) }} edit={(props) => { return resourceF('Configuration', ConfigurationEdit, props, permissionList, base) }} create={(props) => { return resourceF('Configuration', ConfigurationCreate, props, permissionList, base) }} /> )
 				// push
 
 				return resources
