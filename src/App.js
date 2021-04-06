@@ -1,8 +1,9 @@
-import * as React from "react";
+import React, { forwardRef } from 'react'
 import { Admin, Resource } from 'react-admin';
 import dataProvider from './dataProvider';
 import authProvider from './authProvider';
 import customRoutes from './customRoutes';
+import { MyLayout } from './MyLayout'
 
 import Dashboard from './Entities/Home';
 import NotFound from './Entities/NotFoundPage';
@@ -39,6 +40,7 @@ const App = () => (
 		dataProvider={ dataProvider }
 		catchAll={ NotFound }
 		customRoutes={ customRoutes }
+		layout={MyLayout}
 	>
 		{
 			(permissions) => {
