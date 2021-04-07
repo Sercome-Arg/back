@@ -22,8 +22,8 @@ import {
   NumberField,
   NumberInput,
   EmailField,
-  TabbedForm,
   FormTab,
+  TabbedForm,
   RichTextInput,
   ReferenceManyField,
   DateInput,
@@ -146,9 +146,9 @@ export const BusinessList = (props) => {
   }
 };
 
-const style = makeStyles({
-  inlineBlock: { display: 'inline-flex', marginRight: '1rem' },
-});
+  const style = makeStyles({
+    inlineBlock: { display: 'inline-flex', marginRight: '1rem' },
+  });
 
 
 

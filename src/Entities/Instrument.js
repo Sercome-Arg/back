@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cloneElement } from 'react';
-import { 
+import {
   useListContext,
   TopToolbar,
   CreateButton,
@@ -20,8 +20,11 @@ import {
   ArrayInput,
   SimpleFormIterator,
   NumberInput,
-  Area
+  Area,
+  FormTab,
+  TabbedForm
 } from 'react-admin';
+import { makeStyles } from '@material-ui/core/styles';
 
 const ListActions = (props) => {
   const {
@@ -42,8 +45,8 @@ const ListActions = (props) => {
   let instrumentCreate = null
 
   props.permissions.map(perm => {
-    if(perm.permission == props.create) {
-      instrumentCreate = <CreateButton basePath={ basePath } />
+    if (perm.permission == props.create) {
+      instrumentCreate = <CreateButton basePath={basePath} />
     }
   })
 
@@ -65,7 +68,7 @@ const ListActions = (props) => {
   );
 };
 
-const BulkDeleteInstrumentButton = () => {};
+const BulkDeleteInstrumentButton = () => { };
 
 export const InstrumentList = (props) => {
 
@@ -73,7 +76,7 @@ export const InstrumentList = (props) => {
   let instrumentUpdate = null
 
   props.permissions.map(perm => {
-    if(perm.permission == props.update) {
+    if (perm.permission == props.update) {
       instrumentUpdate = <EditButton />
     }
   })
@@ -103,80 +106,108 @@ export const InstrumentList = (props) => {
   </Datagrid>
 
   let instrumentDelete = (child) => {
-    return <List 
-      {...props} 
-      actions={<ListActions permissions={ props.permissions } create={ props.create } />}
-    >{ child }</List>
+    return <List
+      {...props}
+      actions={<ListActions permissions={props.permissions} create={props.create} />}
+    >{child}</List>
   }
-  
+
   let instrumentList = (child) => {
-    return <List 
-      {...props} 
-      actions={<ListActions permissions={ props.permissions } create={ props.create } />}
-      bulkActionButtons={ BulkDeleteInstrumentButton }
-    >{ child }</List>
+    return <List
+      {...props}
+      actions={<ListActions permissions={props.permissions} create={props.create} />}
+      bulkActionButtons={BulkDeleteInstrumentButton}
+    >{child}</List>
   }
 
   let instrumentDeleteBoolean = false
   let instrumentListBoolean = false
 
   props.permissions.map(perm => {
-    if(perm.permission == props.delete) {
+    if (perm.permission == props.delete) {
       instrumentDeleteBoolean = true
     }
-    if(perm.permission == props.list) {
+    if (perm.permission == props.list) {
       instrumentListBoolean = true
     }
   })
 
-  if(instrumentListBoolean) {
+  if (instrumentListBoolean) {
     instrumentReturn = instrumentList
-    if(instrumentDeleteBoolean) {
+    if (instrumentDeleteBoolean) {
       instrumentReturn = instrumentDelete
     }
   }
 
-  if(instrumentReturn === null) {
+  if (instrumentReturn === null) {
     return null
   } else {
     return instrumentReturn(grid)
   }
 };
 
+const style = makeStyles({
+  inlineBlock: { display: 'inline-flex', marginRight: '1rem' },
+});
+
+
 let form = (id) => {
-  return <SimpleForm>
-    { id }
-    <TextInput source="name" />
-    <TextInput label='ID' source="ID" />
-    <TextInput source="brand" />
-    <TextInput source="version" />
-    <TextInput source="numberOfSerie" />
-    <ReferenceInput source="business" reference="business">
-      <SelectInput optionText="name" />
-    </ReferenceInput>
-    <ReferenceInput source="magnitude" reference="magnitude">
-      <SelectInput optionText="name" />
-    </ReferenceInput>
-    <ReferenceInput source="unit" reference="unit">
-      <SelectInput optionText="name" />
-    </ReferenceInput>
-    <NumberInput source="minimumWorkingRange" />
-    <NumberInput source="maximumWorkingRange" />
-    <NumberInput source="minimumMeasurementRange" />
-    <NumberInput source="maximumMeasurementRange" />
-    <TextInput source="observation" multiline />
-  </SimpleForm>
+
+  const classes = style();
+
+  return <TabbedForm margin="normal">
+
+    <FormTab label="Information">
+      <TextInput disabled='ID' source="ID" formClassName={classes.inlineBlock} />
+      <TextInput source="name"  />
+      <TextInput source="brand" formClassName={classes.inlineBlock} />
+      <TextInput source="version" formClassName={classes.inlineBlock} />
+      <TextInput source="name" formClassName={classes.inlineBlock} />
+      <TextInput source="numberOfSerie"  />
+      <ReferenceInput source="agent" reference="user" formClassName={classes.inlineBlock}>
+        <SelectInput optionText="email" />
+      </ReferenceInput>
+      <ReferenceInput source="area" reference="area" formClassName={classes.inlineBlock}>
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+      <NumberInput source="CUIT" formClassName={classes.inlineBlock} />
+    </FormTab>
+
+    <FormTab label="Ranges">
+      <NumberInput source="minimumWorkingRange" />
+      <NumberInput source="maximumWorkingRange" />
+      <NumberInput source="minimumMeasurementRange" />
+      <NumberInput source="maximumMeasurementRange" />
+      <TextInput source="observation" multiline />
+    </FormTab>
+
+    <FormTab label="Audit">
+
+      <ReferenceField source="creationUser" reference="user">
+        <TextField source="email" />
+      </ReferenceField>
+      <ReferenceField source="updateUser" reference="user">
+        <TextField source="email" />
+      </ReferenceField>
+      <DateField source="creationDate" locales="es-AR" />
+      <DateField source="updateDate" locales="es-AR" />
+    </FormTab>
+
+  </TabbedForm>
+
 }
+
+
 
 export const InstrumentEdit = props => {
   let id = <TextInput disabled source="id" />
   return <Edit {...props}>
-    { form(id) }
+    {form(id)}
   </Edit>
 };
 
 export const InstrumentCreate = props => (
   <Create {...props}>
-    { form() }
+    { form()}
   </Create>
 );

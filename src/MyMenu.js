@@ -30,7 +30,7 @@ const Menu = ({ onMenuClick, logout }) => {
                 onClick={onMenuClick}
                 sidebarIsOpen={open}
             />
-            {/* {isXSmall && logout} */}
+            {isXSmall && logout}
         </div>
     );
 }
