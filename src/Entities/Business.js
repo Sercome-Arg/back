@@ -21,8 +21,17 @@ import {
   SimpleFormIterator,
   NumberField,
   NumberInput,
-  EmailField
+  EmailField,
+  FormTab,
+  TabbedForm,
+  RichTextInput,
+  ReferenceManyField,
+  DateInput,
+  BooleanInput
+
+
 } from 'react-admin';
+import { makeStyles } from '@material-ui/core/styles';
 
 const ListActions = (props) => {
   const {
@@ -136,20 +145,50 @@ export const BusinessList = (props) => {
   }
 };
 
+  const style = makeStyles({
+    inlineBlock: { display: 'inline-flex', marginRight: '1rem' },
+  });
+
+
+
+
 let form = (id) => {
-  return <SimpleForm>
-    {id}
-    <TextInput source="name" />
-    <ReferenceInput source="agent" reference="user">
-      <SelectInput optionText="email" />
-    </ReferenceInput>
-    <ReferenceInput source="area" reference="area">
-      <SelectInput optionText="name" />
-    </ReferenceInput>
+
+  const classes = style();
+
+  return <TabbedForm margin="normal">
+
+    <FormTab label="Information">
+      <TextInput disabled label="Id" source="id" formClassName={classes.inlineBlock} />
+      <TextInput source="name" formClassName={classes.inlineBlock} />
+      <ReferenceInput source="agent" reference="user">
+        <SelectInput optionText="email" />
+      </ReferenceInput>
+      <ReferenceInput source="area" reference="area">
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+      <NumberInput source="CUIT" />
+    </FormTab>
+  
+    <FormTab label="Contact">
     <TextInput source="address" />
-    <TextInput source="phone" />
-    <NumberInput source="CUIT" />
-  </SimpleForm>
+      <TextInput source="phone" />
+    </FormTab>
+
+    <FormTab label="Audit">
+    
+      <ReferenceField source="creationUser" reference="user">
+        <TextField source="email" />
+      </ReferenceField>
+      <ReferenceField source="updateUser" reference="user">
+        <TextField source="email" />
+      </ReferenceField>
+      <DateField source="creationDate" locales="es-AR" />
+      <DateField source="updateDate" locales="es-AR" />
+    </FormTab>
+
+  </TabbedForm>
+
 }
 
 export const BusinessEdit = props => {
@@ -161,6 +200,6 @@ export const BusinessEdit = props => {
 
 export const BusinessCreate = props => (
   <Create {...props}>
-    { form()}
+    {form()}
   </Create>
 );

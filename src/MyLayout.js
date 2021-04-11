@@ -55,7 +55,7 @@ const MyUserMenu = props => (
 
 const useSidebarStyles = makeStyles({
   drawerPaper: {
-		backgroundColor: 'blue',
+      backgroundColor: '#402217w',
   },
 });
 
