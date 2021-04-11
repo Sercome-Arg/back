@@ -83,6 +83,8 @@ export const UserList = (props) => {
       </ReferenceField>
       <TextField source="name" />
       <EmailField source="email" />
+      <BooleanField source="sendAlert" />
+      <TextField source="process" />
       <ReferenceField source="creationUser" reference="user">
         <TextField source="email" />
       </ReferenceField>
@@ -101,6 +103,8 @@ export const UserEdit = props => (
       <TextInput disabled source="id" />
       <TextInput source="name" />
       <TextInput source="email" type="email" />
+      <BooleanInput source="sendAlert" />
+      <TextInput source="process" />
       <ReferenceInput source="rol" reference="rol">
         <SelectInput optionText="name" />
       </ReferenceInput>
@@ -113,6 +117,8 @@ export const UserCreate = props => (
     <SimpleForm>
       <TextInput source="name" />
       <TextInput source="email" type="email" />
+      <BooleanInput source="sendAlert" />
+      <TextInput source="process" />
       <ReferenceInput source="rol" reference="rol">
         <SelectInput optionText="name" />
       </ReferenceInput>

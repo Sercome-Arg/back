@@ -83,9 +83,9 @@ export const ConfigurationList = (props) => {
     {
       configurationUpdate
     }
-    <NumberField source="nextAlertYear" />
-    <NumberField source="nextAlertMonth" />
-    <NumberField source="nextAlertDay" />
+    <NumberField source="beforeYear" />
+    <NumberField source="beforeMonth" />
+    <NumberField source="beforeDay" />
     <TextField source="operationType" />
     <ReferenceField source="creationUser" reference="user">
       <TextField source="email" />
@@ -141,9 +141,9 @@ export const ConfigurationList = (props) => {
 let form = (id) => {
   return <SimpleForm>
     { id }
-    <NumberInput source="nextAlertYear" defaultValue='0' />
-    <NumberInput source="nextAlertMonth" defaultValue='0' />
-    <NumberInput source="nextAlertDay" defaultValue='0' />
+    <NumberInput source="beforeYear" defaultValue='0' />
+    <NumberInput source="beforeMonth" defaultValue='0' />
+    <NumberInput source="beforeDay" defaultValue='0' />
   </SimpleForm>
 }
 

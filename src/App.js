@@ -40,7 +40,7 @@ const App = () => (
 		dataProvider={ dataProvider }
 		catchAll={ NotFound }
 		customRoutes={ customRoutes }
-		layout={MyLayout}
+		// layout={MyLayout}
 	>
 		{
 			(permissions) => {

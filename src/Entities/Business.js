@@ -91,7 +91,6 @@ export const BusinessList = (props) => {
       <TextField source="name" />
     </ReferenceField>
     <TextField source="address" />
-    <EmailField source="email" />
     <TextField source="phone" />
     <TextField label='CUIT' source="CUIT" />
   </Datagrid>
@@ -148,7 +147,6 @@ let form = (id) => {
       <SelectInput optionText="name" />
     </ReferenceInput>
     <TextInput source="address" />
-    <TextInput source="email" type='email' />
     <TextInput source="phone" />
     <NumberInput source="CUIT" />
   </SimpleForm>

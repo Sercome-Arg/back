@@ -100,6 +100,9 @@ export const InstrumentList = (props) => {
     <TextField source="maximumWorkingRange" />
     <TextField source="minimumMeasurementRange" />
     <TextField source="maximumMeasurementRange" />
+    <TextField source="validateYear" />
+    <TextField source="validateMonth" />
+    <TextField source="validateDay" />
   </Datagrid>
 
   let instrumentDelete = (child) => {
@@ -164,6 +167,9 @@ let form = (id) => {
     <NumberInput source="maximumWorkingRange" />
     <NumberInput source="minimumMeasurementRange" />
     <NumberInput source="maximumMeasurementRange" />
+    <NumberInput source="validateYear" />
+    <NumberInput source="validateMonth" />
+    <NumberInput source="validateDay" />
     <TextInput source="observation" multiline />
   </SimpleForm>
 }
