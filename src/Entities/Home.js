@@ -1,5 +1,4 @@
 import * as React from "react";
-// import { Card, CardHeader } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -28,10 +27,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
-
-
 }));
-
 
 export default () => {
   const classes = useStyles();
@@ -44,9 +40,6 @@ export default () => {
       />
       
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          SercomeArgentina se caracteriza por brindar un servicio profesional y eficiente  de calibración de instrumentos.
-        </Typography>
         <iframe
           style={{
             background: '#FFFFFF',
@@ -59,19 +52,6 @@ export default () => {
           src="https://charts.mongodb.com/charts-project-0-lytdw/embed/charts?id=19b7340d-eb4a-4537-a82c-434017178f08&theme=light">
         </iframe>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="go to the page">
-          <LinkIcon />
-          {/* <Link href= "https://sercomeargentina.com.ar/#!/-bienvenido/?ancla=Empresa" onClick={handleClick}>   
-  </Link> */}
-        </IconButton>
-        <IconButton aria-label="share">
-          <PhoneIcon />
-        </IconButton>
-
-      </CardActions>
     </Card>
-
-
   </Card>
 };
