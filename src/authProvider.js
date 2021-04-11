@@ -1,8 +1,7 @@
 import { fetchUtils } from 'react-admin';
 
-const apiUrl = process.env.REACT_APP_BASE_URL
-
-const empresa = process.env.REACT_APP_COMPANY
+const apiUrl = (process.env.REACT_APP_BASE_URL !== undefined) ? process.env.REACT_APP_BASE_URL : 'https://sercome-api.herokuapp.com'
+const empresa = (process.env.REACT_APP_COMPANY !== undefined) ? process.env.REACT_APP_COMPANY : 'sercome'
 
 export default {
 
