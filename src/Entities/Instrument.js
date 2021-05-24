@@ -161,19 +161,21 @@ let form = (id) => {
   return <TabbedForm margin="normal">
 
     <FormTab label="Information">
-      <TextInput disabled='ID' source="ID" formClassName={classes.inlineBlock} />
-      <TextInput source="Identification" formClassName={classes.inlineBlock} />
-      <TextInput source="name" />
-      <ReferenceInput source="business" reference="business">
-      <SelectInput optionText="name" />
-    </ReferenceInput>
-      <ReferenceInput source="magnitude" reference="magnitude" formClassName={classes.inlineBlock}>
+      { id }
+      <TextInput label="Identificación" source='ID'/>
+      <ReferenceInput label='Empresa' source="business" reference="business" formClassName={classes.inlineBlock}>
         <SelectInput optionText="name" />
       </ReferenceInput>
-
-      <TextInput source="Marca" formClassName={classes.inlineBlock} />
-      <TextInput source="Modelo" formClassName={classes.inlineBlock} />
-      <TextInput source="numberOfSerie" formClassName={classes.inlineBlock} />
+      <ReferenceInput label='Magnitud' source="magnitude" reference="magnitude" formClassName={classes.inlineBlock}>
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+      <ReferenceInput label='Unidad de Medida' source="unit" reference="unit" formClassName={classes.inlineBlock}>
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+      <></>
+      <TextInput label='Marca' source="brand" formClassName={classes.inlineBlock} />
+      <TextInput label='Modelo' source="version" formClassName={classes.inlineBlock} />
+      <TextInput label='Número de Serie' source="numberOfSerie" formClassName={classes.inlineBlock} />
 
       {/* <ReferenceInput source="agent" reference="user" formClassName={classes.inlineBlock}>
         <SelectInput optionText="email" />
@@ -185,10 +187,10 @@ let form = (id) => {
     </FormTab>
 
     <FormTab label="Ranges">
-      <NumberInput source="minimumWorkingRange" />
-      <NumberInput source="maximumWorkingRange" />
-      <NumberInput source="minimumMeasurementRange" />
-      <NumberInput source="maximumMeasurementRange" />
+      <TextInput source="minimumWorkingRange" />
+      <TextInput source="maximumWorkingRange" />
+      <TextInput source="minimumMeasurementRange" />
+      <TextInput source="maximumMeasurementRange" />
       <NumberInput source="validateYear" />
       <NumberInput source="validateMonth" />
       <NumberInput source="validateDay" />
@@ -214,7 +216,8 @@ let form = (id) => {
 
 
 export const InstrumentEdit = props => {
-  let id = <TextInput disabled source="id" />
+  const classes = style();
+  let id = <TextInput disabled source="id" formClassName={classes.inlineBlock} />
   return <Edit {...props}>
     {form(id)}
   </Edit>

@@ -136,10 +136,10 @@ let form = (id) => {
   return <SimpleForm>
     { id }
     <TextInput source="name" />
-    <ReferenceInput source="instrument" reference="instrument">
+    <ReferenceInput label='Instrumento' source="instrument" reference="instrument">
       <SelectInput optionText="name" />
     </ReferenceInput>
-    <ReferenceInput source="business" reference="business">
+    <ReferenceInput label='Empresa' source="business" reference="business">
       <SelectInput optionText="name" />
     </ReferenceInput>
   </SimpleForm>
