@@ -162,18 +162,26 @@ let form = (id) => {
 
     <FormTab label="Information">
       <TextInput disabled='ID' source="ID" formClassName={classes.inlineBlock} />
-      <TextInput source="name"  />
-      <TextInput source="brand" formClassName={classes.inlineBlock} />
-      <TextInput source="version" formClassName={classes.inlineBlock} />
-      <TextInput source="name" formClassName={classes.inlineBlock} />
-      <TextInput source="numberOfSerie"  />
-      <ReferenceInput source="agent" reference="user" formClassName={classes.inlineBlock}>
+      <TextInput source="Identification" formClassName={classes.inlineBlock} />
+      <TextInput source="name" />
+      <ReferenceInput source="business" reference="business">
+      <SelectInput optionText="name" />
+    </ReferenceInput>
+      <ReferenceInput source="magnitude" reference="magnitude" formClassName={classes.inlineBlock}>
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+
+      <TextInput source="Marca" formClassName={classes.inlineBlock} />
+      <TextInput source="Modelo" formClassName={classes.inlineBlock} />
+      <TextInput source="numberOfSerie" formClassName={classes.inlineBlock} />
+
+      {/* <ReferenceInput source="agent" reference="user" formClassName={classes.inlineBlock}>
         <SelectInput optionText="email" />
       </ReferenceInput>
       <ReferenceInput source="area" reference="area" formClassName={classes.inlineBlock}>
         <SelectInput optionText="name" />
       </ReferenceInput>
-      <NumberInput source="CUIT" formClassName={classes.inlineBlock} />
+      <NumberInput source="CUIT" formClassName={classes.inlineBlock} /> */}
     </FormTab>
 
     <FormTab label="Ranges">
