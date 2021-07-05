@@ -36,10 +36,14 @@ export default {
 
     let project = {}
 
-    let sort = { name: 1, creationDate: -1, }
-    let group = {}
+    let sort = {}
+    let group = {
+      _id: null,
+      count: { $sum: 1 },
+      items: { $push: "$$ROOT" }
+    }
     let limit = params.pagination.perPage
-    let skip = 0
+    let skip = (params.pagination.page - 1) * params.pagination.perPage
 
     const { page, perPage } = params.pagination;
     const { field, order } = params.sort;
@@ -55,21 +59,14 @@ export default {
       let result = response.json.result
 
       if(resource !== 'permission') {
-        result.map(item => {
+        result[0].items.map(item => {
           if(item.id === undefined) {
             item.id = item._id
-          } else {
-            item.idMeli = item.id
-            item.id = item._id
-          }
-          if(resource === 'subscription') {
-            item.start = new Date(item.start)
-            item.end = new Date(item.end)
           }
         })
         return {
-          data: result,
-          total: response.json.result.length
+          data: result[0].items,
+          total: result[0].count
         }
       } else {
         let resultArray = []
